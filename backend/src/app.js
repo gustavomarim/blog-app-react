@@ -3,6 +3,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const admin = require('./routes/admin');
 
+require('./config/dbConfig');
+
 const app = express();
 
 app.use(express.json());
