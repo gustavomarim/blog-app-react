@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const admin = require('./routes/admin');
 
 const app = express();
 
@@ -18,6 +19,9 @@ app.get('/', (req, res) => {
   });
 });
 
+app.use('/admin', admin);
+
+// HTTP SERVER
 const PORT = 3001;
 
 app.listen(PORT, () => {
