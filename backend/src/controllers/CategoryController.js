@@ -1,4 +1,3 @@
-const { json } = require('body-parser');
 const mongoose = require('mongoose');
 require('../models/Category');
 const Category = mongoose.model('categories');
