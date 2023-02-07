@@ -1,17 +1,11 @@
 const express = require('express');
-
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Página principal do painel ADM');
-});
+const CategoryController = require('../controllers/CategoryController');
 
-router.get('/posts', (req, res) => {
-  res.send('Página de posts');
-});
-
-router.get('/categorias', (req, res) => {
-  res.send('Página de categorias');
-});
+router.get('/admin/categories', CategoryController.read);
+router.post('/admin/categories', CategoryController.create);
+router.delete('/admin/categories/:id', CategoryController.delete);
+router.put('/admin/categories/:id', CategoryController.update);
 
 module.exports = router;
