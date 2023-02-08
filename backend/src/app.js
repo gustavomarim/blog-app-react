@@ -1,24 +1,43 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const session = require('express-session');
+const passport = require('passport');
 
 require('./config/dbConfig');
 require('./models/Post');
 require('./models/Category');
-
-// const Post = mongoose.model('posts');
-// const Category = mongoose.model('categories');
+require('./models/User');
+require('./config/auth')(passport);
 
 const admin = require('./routes/admin');
+const user = require('./routes/user');
 
 const app = express();
 
+app.use(
+  session({
+    secret: 'blogapp',
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 app.use(express.json());
-app.use(admin);
 
 // CONFIGURAÇÕES
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(admin);
+app.use(user);
 
 // HTTP SERVER
 const PORT = process.env.PORT || 3001;
