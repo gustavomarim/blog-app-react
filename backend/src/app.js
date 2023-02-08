@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
+const cors = require('cors');
 
 require('./config/dbConfig');
 require('./models/Post');
@@ -13,6 +14,7 @@ const admin = require('./routes/admin');
 const user = require('./routes/user');
 
 const app = express();
+app.use(cors());
 
 app.use(
   session({
