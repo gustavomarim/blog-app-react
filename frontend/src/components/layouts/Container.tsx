@@ -1,5 +1,5 @@
-interface ContainerProps {
-  children: any;
+export interface ContainerProps {
+  children: React.ReactNode;
 }
 
 export const Container = (props: ContainerProps) => {

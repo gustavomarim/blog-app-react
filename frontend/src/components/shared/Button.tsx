@@ -1,11 +1,11 @@
 import { Button } from 'react-bootstrap';
 
-interface ButtonProps {
+export interface ButtonProps {
   type: 'button' | 'submit' | 'reset' | undefined;
   size: 'sm' | 'lg';
-  children: any;
   variant: string;
   href?: string;
+  children: React.ReactNode;
   onClick?: (props: any) => void;
 }
 

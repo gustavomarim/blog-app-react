@@ -1,4 +1,4 @@
-import { ButtonComponent } from './Button';
+import { ButtonComponent } from '../shared/Button';
 
 export const Jumbotron = () => {
   const handleClick = (e: Event) => {

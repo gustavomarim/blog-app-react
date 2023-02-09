@@ -1,9 +1,12 @@
 import './App.css';
-import { Container } from './components/Container';
-import { Jumbotron } from './components/Jumbotron';
-import NavBar from './components/NavBar';
+import { Container } from './components/layouts/Container';
+import { Jumbotron } from './components/template/Jumbotron';
+import { NavBar } from './components/template/NavBar';
+import _ from './functions/_';
 
 function App() {
+  _.obj.isObject({});
+
   return (
     <div className='App'>
       <NavBar />
