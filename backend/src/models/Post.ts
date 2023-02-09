@@ -1,8 +1,15 @@
-const mongoose = require('mongoose');
+import { model, Schema } from 'mongoose';
 
-const { Schema } = mongoose;
+export interface PostProps {
+  title: string;
+  slug: string;
+  description: string;
+  content: string;
+  category: Schema.Types.ObjectId;
+  date: Date;
+}
 
-const Post = new Schema({
+const Post = new Schema<PostProps>({
   title: {
     type: String,
     required: true,
@@ -31,4 +38,6 @@ const Post = new Schema({
   },
 });
 
-mongoose.model('posts', Post);
+const postsModel = model<PostProps>('posts', Post);
+
+export default postsModel;

@@ -1,17 +1,18 @@
-const mongoose = require('mongoose');
-require('../models/Category');
-const Category = mongoose.model('categories');
+import { Request, Response } from 'express';
+import categoriesModel from '../models/Category';
 
-module.exports = {
+const Category = categoriesModel;
+
+export default {
   // GET
-  async read(request, response) {
+  async read(request: Request, response: Response) {
     const categoryList = await Category.find();
 
     return response.json(categoryList);
   },
 
   // POST
-  async create(request, response) {
+  async create(request: Request, response: Response) {
     const { name, slug } = request.body;
 
     // REFORMULAR PARA UMA VALIDAÇÃO DE FORMULÁRIO REUTILIZÁVEL
@@ -33,7 +34,7 @@ module.exports = {
   },
 
   // PUT
-  async update(request, response) {
+  async update(request: Request, response: Response) {
     const { id } = request.params;
     const { name, slug } = request.body;
 
@@ -55,7 +56,7 @@ module.exports = {
   },
 
   // DELETE
-  async delete(request, response) {
+  async delete(request: Request, response: Response) {
     const { id } = request.params;
 
     const categoryDeleted = await Category.findOneAndDelete({ _id: id });

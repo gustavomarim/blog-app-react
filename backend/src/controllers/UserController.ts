@@ -1,14 +1,12 @@
-const mongoose = require('mongoose');
-const passport = require('passport');
+import * as bcrypt from 'bcryptjs';
+import { NextFunction, Request, Response } from 'express';
+import passport from 'passport';
+import usersModel from '../models/User';
 
-require('../models/User');
+const User = usersModel;
 
-const User = mongoose.model('users');
-
-const bcrypt = require('bcryptjs');
-
-module.exports = {
-  async register(request, response) {
+export default {
+  async register(request: Request, response: Response) {
     const { name, email, password } = request.body;
 
     const userEmail = await User.findOne({ email });
@@ -25,8 +23,8 @@ module.exports = {
       });
 
       // 'Hasheando' a senha
-      bcrypt.genSalt(10, (error, salt) => {
-        bcrypt.hash(newUser.password, salt, (err, hash) => {
+      bcrypt.genSalt(10, (error: any, salt: any) => {
+        bcrypt.hash(newUser.password, salt, (err: any, hash: any) => {
           if (err) {
             return response.json({
               error: 'Houve um erro durante o salvamento do usuário',
@@ -43,7 +41,7 @@ module.exports = {
     }
   },
 
-  async login(request, response, next) {
+  async login(request: Request, response: Response, next: NextFunction) {
     await passport.authenticate('local', {
       successRedirect: '/',
       failureRedirect: '/users/login',
@@ -51,11 +49,11 @@ module.exports = {
     })(request, response, next);
   },
 
-  logout(request, response, next) {
-    request.logout((err) => {
-      if (err) return next(err);
-    });
+  // logout(request: Request, response: Response, next: NextFunction) {
+  //   request.logout((err: Error) => {
+  //     if (err) return next(err);
+  //   });
 
-    return response.json('Logout realizado com sucesso!');
-  },
+  //   return response.json('Logout realizado com sucesso!');
+  // },
 };

@@ -1,8 +1,8 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const session = require('express-session');
-const passport = require('passport');
-const cors = require('cors');
+import * as bodyParser from 'body-parser';
+import cors from 'cors';
+import express, { NextFunction, Request, Response } from 'express';
+import expressSession from 'express-session';
+import passport from 'passport';
 
 require('./config/dbConfig');
 require('./models/Post');
@@ -17,7 +17,7 @@ const app = express();
 app.use(cors());
 
 app.use(
-  session({
+  expressSession({
     secret: 'blogapp',
     resave: true,
     saveUninitialized: true,
@@ -27,7 +27,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.user = req.user || null;
   next();
 });

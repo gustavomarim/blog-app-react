@@ -1,10 +1,11 @@
-const mongoose = require('mongoose');
-require('../models/Post');
-const Post = mongoose.model('posts');
+import { Request, Response } from 'express';
+import postsModel from '../models/Post';
 
-module.exports = {
+const Post = postsModel;
+
+export default {
   // GET
-  async read(request, response) {
+  async read(request: Request, response: Response) {
     const postList = await Post.find()
       // Faz a conexão da collection de Postagem com a de Categoria
       .populate('category')
@@ -18,7 +19,7 @@ module.exports = {
   },
 
   // POST
-  async create(request, response) {
+  async create(request: Request, response: Response) {
     const { title, slug, description, content, category } = request.body;
 
     // ADICIONAR VALIDAÇÃO...
@@ -39,7 +40,7 @@ module.exports = {
   },
 
   // PUT
-  async update(request, response) {
+  async update(request: Request, response: Response) {
     const { id } = request.params;
     const { title, slug, description, content, category } = request.body;
 
@@ -62,7 +63,7 @@ module.exports = {
   },
 
   // DELETE
-  async delete(request, response) {
+  async delete(request: Request, response: Response) {
     const { id } = request.params;
 
     const postDeleted = await Post.findOneAndDelete({ _id: id });
