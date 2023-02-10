@@ -1,5 +1,6 @@
 import './App.css';
 import { Container } from './components/layouts/Container';
+import { Posts } from './components/posts/index.';
 import { Jumbotron } from './components/template/Jumbotron';
 import { NavBar } from './components/template/NavBar';
 import _ from './functions/_';
@@ -12,6 +13,8 @@ function App() {
       <NavBar />
       <Container>
         <Jumbotron />
+        <hr />
+        <Posts />
       </Container>
     </div>
   );
