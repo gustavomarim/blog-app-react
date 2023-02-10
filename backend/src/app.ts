@@ -12,6 +12,7 @@ require('./config/auth')(passport);
 
 const admin = require('./routes/admin');
 const user = require('./routes/user');
+const home = require('./routes/home');
 
 const app = express();
 app.use(cors());
@@ -40,6 +41,7 @@ app.use(bodyParser.json());
 
 app.use(admin);
 app.use(user);
+app.use(home);
 
 // HTTP SERVER
 const PORT = process.env.PORT || 3001;
