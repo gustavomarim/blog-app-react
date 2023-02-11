@@ -18,6 +18,14 @@ export default {
       .json({ error: 'Houve um erro ao listar as postagens' });
   },
 
+  async readOne(request: Request, response: Response) {
+    const post = await Post.findOne({slug: request.params.slug})
+
+    if(post) return response.json(post);
+
+    return response.status(400).json({error: 'Houve um erro ao listar a postagem'});
+  },
+
   // POST
   async create(request: Request, response: Response) {
     const { title, slug, description, content, category } = request.body;
