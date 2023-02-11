@@ -20,17 +20,15 @@ export const Posts = () => {
     <>
       <h2 className='my-4'>Postagens Recentes:</h2>
       {posts.map(({ title, slug, description, content, category, date }) => (
-        <>
-          {console.log(date)}
-          <PostCard
-            title={title}
-            slug={slug}
-            description={description}
-            content={content}
-            category={category}
-            date={date}
-          />
-        </>
+        <PostCard
+          key={title}
+          title={title}
+          slug={slug}
+          description={description}
+          content={content}
+          category={category}
+          date={date}
+        />
       ))}
     </>
   );

@@ -1,5 +1,6 @@
 import { Card } from 'react-bootstrap';
 import { PostProps } from '../../core/posts/Post';
+import _ from '../../functions/_';
 import { ButtonComponent } from '../shared/Button';
 
 export const PostCard = (props: PostProps) => {
@@ -15,9 +16,9 @@ export const PostCard = (props: PostProps) => {
           </ButtonComponent>
 
           <hr />
+          <small className='d-block'>{`Categoria: ${props.category.name}`}</small>
 
-          <p className='d-block'>Categoria: {props.category}</p>
-          <p className='d-block'>Data de publicação: {'props.date'}</p>
+          <small className='d-block'>{`Data da postagem: ${_.fd.formatDate(props.date)}`}</small>
         </Card.Body>
       </Card>
     </>
