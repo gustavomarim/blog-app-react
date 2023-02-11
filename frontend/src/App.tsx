@@ -1,7 +1,6 @@
 import './App.css';
 import { Container } from './components/layouts/Container';
-import { Posts } from './components/posts/index.';
-import { Jumbotron } from './components/template/Jumbotron';
+import RoutesComponent from './components/routes/index';
 import { NavBar } from './components/template/NavBar';
 
 function App() {
@@ -9,9 +8,7 @@ function App() {
     <div className='App'>
       <NavBar />
       <Container>
-        <Jumbotron />
-        <hr />
-        <Posts />
+        <RoutesComponent />
       </Container>
     </div>
   );
