@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import api from '../../core/api/ApiService';
 import { PostProps } from '../../core/posts/Post';
+import { PostCard } from '../post/PostCard';
+import { Title } from '../shared/Title';
 import { Jumbotron } from '../template/Jumbotron';
-import { PostCard } from './PostCard';
 
 export const Home = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);
@@ -23,7 +24,7 @@ export const Home = () => {
 
       <hr />
 
-      <h2 className='my-4'>Postagens Recentes:</h2>
+      <Title>Postagens Recentes:</Title>
       {posts.map(({ title, slug, description, content, category, date }) => (
         <PostCard
           key={title}

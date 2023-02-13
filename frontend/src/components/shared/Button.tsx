@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap';
 
 export interface ButtonProps {
   type: 'button' | 'submit' | 'reset' | undefined;
-  size: 'sm' | 'lg';
+  size: 'sm' |  'lg' | undefined;
   variant: string;
   href?: string;
   children: React.ReactNode;
