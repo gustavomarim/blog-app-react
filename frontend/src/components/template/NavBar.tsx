@@ -16,7 +16,7 @@ export const NavBar = () => {
             <Link to='/' className='text-decoration-none nav-link'>
               Home
             </Link>
-            <Link to='/' className='text-decoration-none nav-link'>
+            <Link to='/categories' className='text-decoration-none nav-link'>
               Categorias
             </Link>
             <Link to='/' className='text-decoration-none nav-link'>
