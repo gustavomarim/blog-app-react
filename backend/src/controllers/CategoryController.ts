@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import categoriesModel from '../models/Category';
+import postsModel from '../models/Post';
 
 const Category = categoriesModel;
+const Post = postsModel;
 
 export default {
   // GET
@@ -9,6 +11,36 @@ export default {
     const categoryList = await Category.find();
 
     return response.json(categoryList);
+  },
+
+  // GET
+  async readPostsByCategory(request: Request, response: Response) {
+    const categoryList = await Category.findOne({
+      slug: request.params.slug,
+    })
+      .then((category) => {
+        if (category) {
+          return Post.find({ category: category._id });
+        }
+      })
+      .catch((err: Error) => response.json(err));
+
+    if (categoryList) return response.json(categoryList);
+
+    return response.status(400).json({
+      error: 'Houve um erro interno ao carregar a lista de categorias',
+    });
+  },
+
+  // GET
+  async readCategoryBySlug(request: Request, response: Response) {
+    const category = await Category.findOne({ slug: request.params.slug });
+
+    if (category) return response.json(category);
+
+    return response.status(400).json({
+      error: 'Houve um erro interno ao carregar a categoria',
+    });
   },
 
   // POST

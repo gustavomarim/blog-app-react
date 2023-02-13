@@ -8,9 +8,9 @@ const categoryController = CategoryController;
 router.get('/categories', categoryController.read);
 
 // All Categories by Slug
-router.get('/categories/:slug', categoryController.readCategoriesBySlug);
+router.get('/categories/:slug', categoryController.readPostsByCategory);
 
 // Category by id
-router.get('/category/:slug', categoryController.readBySlug);
+router.get('/category/:slug', categoryController.readCategoryBySlug);
 
 module.exports = router;
