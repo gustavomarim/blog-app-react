@@ -14,6 +14,7 @@ const admin = require('./routes/admin');
 const user = require('./routes/user');
 const home = require('./routes/home');
 const post = require('./routes/post');
+const category = require('./routes/category');
 
 const app = express();
 app.use(cors());
@@ -44,6 +45,7 @@ app.use(admin);
 app.use(user);
 app.use(home);
 app.use(post);
+app.use(category);
 
 // HTTP SERVER
 const PORT = process.env.PORT || 3001;
