@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
+import { PostCard } from '../../components/post/PostCard';
+import { Title } from '../../components/shared/Title';
+import { Jumbotron } from '../../components/template/Jumbotron';
 import api from '../../core/api/ApiService';
 import { PostProps } from '../../core/posts/Post';
-import { PostCard } from '../post/PostCard';
-import { Title } from '../shared/Title';
-import { Jumbotron } from '../template/Jumbotron';
 
 export const Home = () => {
   const [posts, setPosts] = useState<PostProps[]>([]);

@@ -1,16 +1,18 @@
 import { Route, Routes } from 'react-router-dom';
-import { Category } from '../category';
-import { PostByCategory } from '../category/PostByCategory';
-import { Home } from '../home/index.';
-import { Post } from '../post';
+import { Category } from '../../pages/category';
+import { PostByCategory } from '../../pages/category/PostByCategory';
+import { Home } from '../../pages/home/index.';
+import { Post } from '../../pages/post';
+import { Register } from '../../pages/user/Register';
 
 const RoutesComponent = () => {
   return (
     <Routes>
-      <Route element={<Home />} path='/' />
-      <Route element={<Post />} path={`/posts/:slug`} />
-      <Route element={<Category />} path='/categories' />
-      <Route element={<PostByCategory />} path='/categories/:slug' />
+      <Route path='/' element={<Home />} />
+      <Route path={'/posts/:slug'} element={<Post />} />
+      <Route path='/categories' element={<Category />} />
+      <Route path='/categories/:slug' element={<PostByCategory />} />
+      <Route path='/register' element={<Register />} />
     </Routes>
   );
 };

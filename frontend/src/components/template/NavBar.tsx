@@ -22,7 +22,7 @@ export const NavBar = () => {
             <Link to='/' className='text-decoration-none nav-link'>
               Login
             </Link>
-            <Link to='/' className='text-decoration-none nav-link'>
+            <Link to='/register' className='text-decoration-none nav-link'>
               Registro
             </Link>
           </Nav>

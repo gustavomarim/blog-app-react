@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { TagIcon } from '../../components/icons';
+import { Title } from '../../components/shared/Title';
 import api from '../../core/api/ApiService';
 import { CategoryProps } from '../../core/category/Category';
-import { TagIcon } from '../icons';
-import { Title } from '../shared/Title';
 
 export const Category = () => {
   const [categories, setCategories] = useState<CategoryProps[]>([]);

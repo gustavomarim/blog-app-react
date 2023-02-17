@@ -1,43 +1,43 @@
 import { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
+import { ButtonComponent } from '../../components/shared/Button';
+import { Title } from '../../components/shared/Title';
 import api from '../../core/api/ApiService';
 import { CategoryProps } from '../../core/category/Category';
 import { PostProps } from '../../core/posts/Post';
 import _ from '../../functions/_';
-import { ButtonComponent } from '../shared/Button';
-import { Title } from '../shared/Title';
 
 export const PostByCategory = () => {
   const [post, setPost] = useState<PostProps[]>([]);
-  const [category, setCategory] = useState<any>('');
+  const [category, setCategory] = useState<CategoryProps>();
   const params = useParams();
-  const slug = params.slug;
+  const slug = params.slug ?? '';
 
   async function getPostByCategory(slug: string): Promise<void> {
     const response = await api.get(`/categories/${slug}`);
-    const data = response.data;
+    const { data } = response;
     setPost(data);
   }
 
   async function getCategoryBySlug(slug: string): Promise<void> {
     const response = await api.get(`/category/${slug}`);
-    const data: CategoryProps = response.data;
+    const { data } = response;
     setCategory(data);
   }
 
   useEffect(() => {
-    if (typeof slug === 'string') getPostByCategory(slug);
+    if (_.str.isString(slug)) getPostByCategory(slug);
   }, []);
 
   useEffect(() => {
-    if (typeof slug === 'string') getCategoryBySlug(slug);
+    if (_.str.isString(slug)) getCategoryBySlug(slug);
   }, []);
 
   if (post && post.length > 0)
     return (
       <>
-        <Title>{category.name}</Title>
+        {category ? <Title>{category.name}</Title> : ''}
         {post.map((post) => (
           <Card className='mb-4' key={post.title}>
             <Card.Body>
@@ -64,7 +64,7 @@ export const PostByCategory = () => {
 
   return (
     <>
-      <Title>{category.name}</Title>
+      <Title>{category ? category.name : ''}</Title>
       <p>Não há postagens desta categoria.</p>
     </>
   );
