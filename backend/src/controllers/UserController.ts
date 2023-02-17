@@ -7,14 +7,18 @@ const User = usersModel;
 
 export default {
   async register(request: Request, response: Response) {
-    const { name, email, password } = request.body;
+    const { name, email, password, confirmPassword } = request.body;
 
     const userEmail = await User.findOne({ email });
 
+    if (password !== confirmPassword) {
+      return response.status(400).json({ error: 'As senhas devem ser iguais' });
+    }
+
     if (userEmail) {
-      return response.status(400).json({
-        error: 'Já Existe uma conta com este e-mail no nosso sistema',
-      });
+      return response
+        .status(400)
+        .json('Já existe uma conta com este e-mail no nosso sistema');
     } else {
       const newUser = await User.create({
         name,
