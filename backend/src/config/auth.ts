@@ -5,36 +5,37 @@ import usersModel, { UserProps } from '../models/User';
 const User = usersModel;
 
 export interface PassportProps {
-  use: (arg0: LocalStrategy) => void;
-  serializeUser: (arg0: (user: UserProps, done: any) => void) => void;
-  deserializeUser: (arg0: (id: string, done: any) => void) => void;
+  use(strategy: LocalStrategy): void;
+  serializeUser(
+    fn: (user: UserProps, done: (err: any, id?: any) => void) => void,
+  ): void;
+  deserializeUser(
+    fn: (id: any, done: (err: any, user?: any) => void) => void,
+  ): void;
 }
 
 module.exports = (passport: PassportProps) => {
   passport.use(
     new LocalStrategy(
       { usernameField: 'email', passwordField: 'password' },
-      (email: string, password: string, done: any) => {
-        User.findOne({ email }).then((user) => {
+      async (email: string, password: string, done: any) => {
+        try {
+          const user = await User.findOne({ email });
+
           if (!user) {
-            return done(null, false);
+            return done(null, false, { message: 'Usuário não encontrado' });
           }
 
-          // compara os valores 'hasheados'
-          bcrypt.compare(
-            password,
-            user.password,
-            (error: Error, isSamePasswords: boolean) => {
-              if (isSamePasswords) {
-                return done(null, user);
-              }
+          const isSamePasswords = await bcrypt.compare(password, user.password);
 
-              return done(error, false);
-            },
-          );
-
-          return null;
-        });
+          if (isSamePasswords) {
+            return done(null, user);
+          } else {
+            return done(null, false, { message: 'Senha inválida' });
+          }
+        } catch (error) {
+          return done(error);
+        }
       },
     ),
   );
