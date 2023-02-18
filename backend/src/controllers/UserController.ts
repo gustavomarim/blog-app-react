@@ -45,11 +45,43 @@ export default {
     }
   },
 
-  async login(request: Request, response: Response, next: NextFunction) {
-    await passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/users/login',
-      failureFlash: true,
+  async login(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+  ): Promise<void> {
+    passport.authenticate('local', (err, user, info) => {
+      if (err) {
+        // Erro interno do servidor
+        return response.status(500).json({
+          message: 'Erro interno do servidor',
+          error: err.message,
+        });
+      }
+
+      if (!user) {
+        // Credenciais inválidas
+        return response.status(401).json({
+          message: 'Credenciais inválidas',
+          error: info.message,
+        });
+      }
+
+      // Login bem-sucedido
+      request.logIn(user, (err) => {
+        if (err) {
+          return response.status(500).json({
+            message: 'Erro interno do servidor',
+            error: err.message,
+          });
+        }
+
+        return response.status(200).json({
+          id: user.id,
+          name: user.name,
+          isAdmin: user.isAdmin,
+        });
+      });
     })(request, response, next);
   },
 
