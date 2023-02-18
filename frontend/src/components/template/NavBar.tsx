@@ -19,7 +19,7 @@ export const NavBar = () => {
             <Link to='/categories' className='text-decoration-none nav-link'>
               Categorias
             </Link>
-            <Link to='/' className='text-decoration-none nav-link'>
+            <Link to='/login' className='text-decoration-none nav-link'>
               Login
             </Link>
             <Link to='/register' className='text-decoration-none nav-link'>
