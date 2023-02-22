@@ -8,7 +8,7 @@ const Post = postsModel;
 export default {
   // GET
   async read(request: Request, response: Response) {
-    const categoryList = await Category.find();
+    const categoryList = await Category.find().sort({ date: 'desc' });
 
     return response.json(categoryList);
   },

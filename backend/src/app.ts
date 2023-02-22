@@ -1,14 +1,14 @@
-import * as bodyParser from 'body-parser';
+import bodyParser from 'body-parser';
 import cors from 'cors';
-import express, { NextFunction, Request, Response } from 'express';
-import expressSession from 'express-session';
+import express from 'express';
+import session from 'express-session';
 import passport from 'passport';
+import configurePassport from './config/auth';
 
 require('./config/dbConfig');
+require('./models/User');
 require('./models/Post');
 require('./models/Category');
-require('./models/User');
-require('./config/auth')(passport);
 
 const admin = require('./routes/admin');
 const user = require('./routes/user');
@@ -19,35 +19,30 @@ const category = require('./routes/category');
 const app = express();
 app.use(cors());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+
+// CONFIGURAÇÕES
+// Sessão
 app.use(
-  expressSession({
+  session({
     secret: 'blogapp',
     resave: true,
     saveUninitialized: true,
   }),
 );
 
+// MIDDLEWARES
+configurePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.locals.user = req.user || null;
-  next();
-});
-
-app.use(express.json());
-
-// CONFIGURAÇÕES
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-app.use(admin);
-app.use(user);
 app.use(home);
+app.use(user);
+app.use(admin);
 app.use(post);
 app.use(category);
 
-// HTTP SERVER
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {

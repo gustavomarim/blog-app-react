@@ -1,38 +1,26 @@
 import * as bcrypt from 'bcryptjs';
+import { PassportStatic } from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import usersModel, { UserProps } from '../models/User';
+import User from '../models/User';
 
-const User = usersModel;
-
-export interface PassportProps {
-  use(strategy: LocalStrategy): void;
-  serializeUser(
-    fn: (user: UserProps, done: (err: any, id?: any) => void) => void,
-  ): void;
-  deserializeUser(
-    fn: (id: any, done: (err: any, user?: any) => void) => void,
-  ): void;
-}
-
-module.exports = (passport: PassportProps) => {
+const configurePassport = (passport: PassportStatic): void => {
   passport.use(
     new LocalStrategy(
       { usernameField: 'email', passwordField: 'password' },
       async (email: string, password: string, done: any) => {
         try {
           const user = await User.findOne({ email });
-
           if (!user) {
             return done(null, false, { message: 'Usuário não encontrado' });
           }
 
-          const isSamePasswords = await bcrypt.compare(password, user.password);
+          const isMatchPassword = await bcrypt.compare(password, user.password);
 
-          if (isSamePasswords) {
-            return done(null, user);
-          } else {
+          if (!isMatchPassword) {
             return done(null, false, { message: 'Senha inválida' });
           }
+
+          return done(null, user);
         } catch (error) {
           return done(error);
         }
@@ -40,13 +28,19 @@ module.exports = (passport: PassportProps) => {
     ),
   );
 
-  passport.serializeUser((user: UserProps, done: any) => {
-    done(null, user.id);
+  passport.serializeUser((user: any, done: any) => {
+    return done(null, user.id);
   });
 
-  passport.deserializeUser((id: string, done: any) => {
-    User.findById(id, (err: Error, user: UserProps) => {
-      done(err, user);
-    });
+  passport.deserializeUser(async (id: any, done: any) => {
+    console.log('deserialize');
+    try {
+      const user = await User.findById(id);
+      done(null, user);
+    } catch (err) {
+      done(err, null);
+    }
   });
 };
+
+export default configurePassport;

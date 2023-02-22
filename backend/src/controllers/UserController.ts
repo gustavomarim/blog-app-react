@@ -1,9 +1,7 @@
 import * as bcrypt from 'bcryptjs';
 import { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
-import usersModel from '../models/User';
-
-const User = usersModel;
+import User from '../models/User';
 
 export default {
   async register(request: Request, response: Response) {
@@ -45,11 +43,7 @@ export default {
     }
   },
 
-  async login(
-    request: Request,
-    response: Response,
-    next: NextFunction,
-  ): Promise<void> {
+  login(request: Request, response: Response, next: NextFunction) {
     passport.authenticate('local', (err, user, info) => {
       if (err) {
         // Erro interno do servidor
@@ -58,7 +52,6 @@ export default {
           error: err.message,
         });
       }
-
       if (!user) {
         // Credenciais inválidas
         return response.status(401).json({
@@ -66,7 +59,6 @@ export default {
           error: info.message,
         });
       }
-
       // Login bem-sucedido
       request.logIn(user, (err) => {
         if (err) {
@@ -75,21 +67,24 @@ export default {
             error: err.message,
           });
         }
-
         return response.status(200).json({
-          id: user.id,
-          name: user.name,
-          isAdmin: user.isAdmin,
+          message: 'Login bem-sucedido',
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+          },
         });
       });
     })(request, response, next);
   },
 
-  // logout(request: Request, response: Response, next: NextFunction) {
-  //   request.logout((err: Error) => {
-  //     if (err) return next(err);
-  //   });
+  logout(request: Request, response: Response, next: NextFunction) {
+    request.logout((err: any) => {
+      if (err) return next(err);
+    });
 
-  //   return response.json('Logout realizado com sucesso!');
-  // },
+    return response.status(200).json('Logout realizado com sucesso!');
+  },
 };

@@ -4,8 +4,8 @@ export interface UserProps {
   id: string;
   name: string;
   email: string;
-  isAdmin: 0 | 1;
   password: string;
+  isAdmin: 0 | 1;
 }
 
 const User = new Schema<UserProps>({

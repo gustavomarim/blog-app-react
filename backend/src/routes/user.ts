@@ -9,6 +9,6 @@ router.post('/users/register', userController.register);
 
 // Rota Login
 router.post('/users/login', userController.login);
-// router.get('/users/logout', userController.logout);
+router.get('/users/logout', userController.logout);
 
 module.exports = router;
