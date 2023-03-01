@@ -33,7 +33,6 @@ const configurePassport = (passport: PassportStatic): void => {
   });
 
   passport.deserializeUser(async (id: any, done: any) => {
-    console.log('deserialize');
     try {
       const user = await User.findById(id);
       done(null, user);
