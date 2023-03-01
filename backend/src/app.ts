@@ -1,6 +1,6 @@
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import session from 'express-session';
 import passport from 'passport';
 import configurePassport from './config/auth';
@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // CONFIGURAÇÕES
+configurePassport(passport);
+
 // Sessão
 app.use(
   session({
@@ -33,9 +35,13 @@ app.use(
 );
 
 // MIDDLEWARES
-configurePassport(passport);
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((request: Request, response: Response, next: NextFunction) => {
+  response.locals.user = request.user || null;
+  next();
+});
 
 app.use(home);
 app.use(user);
