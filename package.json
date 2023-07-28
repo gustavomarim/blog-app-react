@@ -1,0 +1,12 @@
+{
+  "name": "blog-app-react",
+  "version": "0.0.0",
+  "description": "blog app em react, ts e mongodb",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cd frontend && yarn dev\" \"cd backend && yarn dev\"",
+    "build": "concurrently \"cd frontend && yarn build\" \"cd backend && yarn build\""
+  },
+  "author": "@gustavomarim",
+  "license": "ISC"
+}
