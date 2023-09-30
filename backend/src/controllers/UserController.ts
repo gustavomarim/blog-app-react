@@ -25,8 +25,8 @@ export default {
       });
 
       // 'Hasheando' a senha
-      bcrypt.genSalt(10, (_error: Error, salt: string) => {
-        bcrypt.hash(newUser.password, salt, (err: Error, hash: string) => {
+      bcrypt.genSalt(10, (_error: any, salt: any) => {
+        bcrypt.hash(newUser.password, salt, (err: any, hash: any) => {
           if (err) {
             return response.json({
               error: "Houve um erro durante o salvamento do usuário",
