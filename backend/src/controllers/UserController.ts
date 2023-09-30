@@ -1,7 +1,7 @@
-import * as bcrypt from 'bcryptjs';
-import { NextFunction, Request, Response } from 'express';
-import passport from 'passport';
-import User from '../models/User';
+import * as bcrypt from "bcryptjs";
+import { NextFunction, Request, Response } from "express";
+import passport from "passport";
+import User from "../models/User";
 
 export default {
   async register(request: Request, response: Response) {
@@ -10,13 +10,13 @@ export default {
     const userEmail = await User.findOne({ email });
 
     if (password !== confirmPassword) {
-      return response.status(400).json({ error: 'As senhas devem ser iguais' });
+      return response.status(400).json({ error: "As senhas devem ser iguais" });
     }
 
     if (userEmail) {
       return response
         .status(400)
-        .json('Já existe uma conta com este e-mail no nosso sistema');
+        .json("Já existe uma conta com este e-mail no nosso sistema");
     } else {
       const newUser = await User.create({
         name,
@@ -25,11 +25,11 @@ export default {
       });
 
       // 'Hasheando' a senha
-      bcrypt.genSalt(10, (error: any, salt: any) => {
-        bcrypt.hash(newUser.password, salt, (err: any, hash: any) => {
+      bcrypt.genSalt(10, (_error: Error, salt: string) => {
+        bcrypt.hash(newUser.password, salt, (err: Error, hash: string) => {
           if (err) {
             return response.json({
-              error: 'Houve um erro durante o salvamento do usuário',
+              error: "Houve um erro durante o salvamento do usuário",
             });
           } else {
             newUser.password = hash;
@@ -44,18 +44,18 @@ export default {
   },
 
   login(request: Request, response: Response, next: NextFunction) {
-    passport.authenticate('local', (err, user, info) => {
+    passport.authenticate("local", (err: any, user: any, info: any) => {
       if (err) {
         // Erro interno do servidor
         return response.status(500).json({
-          message: 'Erro interno do servidor',
+          message: "Erro interno do servidor",
           error: err.message,
         });
       }
       if (!user) {
         // Credenciais inválidas
         return response.status(401).json({
-          message: 'Credenciais inválidas',
+          message: "Credenciais inválidas",
           error: info.message,
         });
       }
@@ -63,12 +63,12 @@ export default {
       request.logIn(user, (err) => {
         if (err) {
           return response.status(500).json({
-            message: 'Erro interno do servidor',
+            message: "Erro interno do servidor",
             error: err.message,
           });
         }
         return response.status(200).json({
-          message: 'Login bem-sucedido',
+          message: "Login bem-sucedido",
           user: {
             id: user.id,
             name: user.name,
@@ -85,6 +85,6 @@ export default {
       if (err) return next(err);
     });
 
-    return response.status(200).json('Logout realizado com sucesso!');
+    return response.status(200).json("Logout realizado com sucesso!");
   },
 };
