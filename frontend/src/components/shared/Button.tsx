@@ -1,27 +1,33 @@
-import { Button } from 'react-bootstrap';
-import { VariantProps } from '../../core/bootstrap/Variant';
+import React from "react";
+import { Button } from "react-bootstrap";
 
-export interface ButtonProps {
-  type: 'button' | 'submit' | 'reset' | undefined;
-  size: 'sm' | 'lg' | undefined;
-  variant: VariantProps;
-  disabled?: boolean;
-  href?: string;
-  children: React.ReactNode;
-  onClick?: (props: any) => void;
-}
+type ButtonVariantProps =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "dark"
+  | "light"
+  | "link"
+  | "outline-primary"
+  | "outline-secondary"
+  | "outline-success"
+  | "outline-danger"
+  | "outline-warning"
+  | "outline-info"
+  | "outline-dark"
+  | "outline-light";
 
-export const ButtonComponent = (props: ButtonProps) => {
+type ButtonProps = React.ComponentProps<typeof Button & "button"> & {
+  variant?: ButtonVariantProps;
+};
+
+export const ButtonComponent = ({ variant, ...props }: ButtonProps) => {
   return (
     <>
-      <Button
-        type={props.type}
-        size={props.size}
-        variant={props.variant}
-        onClick={props.onClick}
-        disabled={props.disabled}
-        href={props.href}
-      >
+      <Button variant={variant} {...props}>
         {props.children}
       </Button>
     </>

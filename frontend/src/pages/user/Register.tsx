@@ -166,9 +166,8 @@ export const Register = () => {
                 </Input>
 
                 <ButtonComponent
-                  type={'submit'}
-                  size={undefined}
-                  variant={'success'}
+                  type='submit'
+                  variant='success'
                 >
                   Registrar
                 </ButtonComponent>

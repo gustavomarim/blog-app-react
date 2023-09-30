@@ -1,13 +1,13 @@
-import { Formik } from 'formik';
-import { useState } from 'react';
-import { Card, Form } from 'react-bootstrap';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { AlertComponent } from '../../components/shared/Alert';
-import { ButtonComponent } from '../../components/shared/Button';
-import { Title } from '../../components/shared/Title';
-import { Input } from '../../components/template/Input';
-import api from '../../core/api/ApiService';
-import { loginSchema } from '../../state/schema/loginSchema';
+import { Formik } from "formik";
+import { useState } from "react";
+import { Card, Form } from "react-bootstrap";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import { AlertComponent } from "../../components/shared/Alert";
+import { ButtonComponent } from "../../components/shared/Button";
+import { Title } from "../../components/shared/Title";
+import { Input } from "../../components/template/Input";
+import api from "../../core/api/ApiService";
+import { loginSchema } from "../../state/schema/loginSchema";
 
 export interface LoginProps {
   email: string;
@@ -25,12 +25,12 @@ export const Login = () => {
     setResponseMessage(null);
 
     await api
-      .post('/users/login', {
+      .post("/users/login", {
         email,
         password,
       })
       .then(() => {
-        setResponseMessage('Login realizado com sucesso!');
+        setResponseMessage("Login realizado com sucesso!");
         redirectToHome(true);
       })
       .catch((err: any) => setErrorMessage(err.response.data.error));
@@ -39,7 +39,7 @@ export const Login = () => {
   function redirectToHome(isRedirect: boolean): void {
     if (isRedirect)
       setTimeout(() => {
-        navigate('/');
+        navigate("/");
       }, 4000);
   }
 
@@ -48,24 +48,24 @@ export const Login = () => {
       {responseMessage ? (
         <AlertComponent
           message={responseMessage}
-          variant={'success'}
+          variant={"success"}
           timeInMS={3000}
         />
       ) : (
-        ''
+        ""
       )}
       {errorMessage ? (
         <AlertComponent
           message={errorMessage}
-          variant={'danger'}
+          variant={"danger"}
           timeInMS={3000}
         />
       ) : (
-        ''
+        ""
       )}
       <Title>Login:</Title>
       <Formik
-        initialValues={{ email: '', password: '' }}
+        initialValues={{ email: "", password: "" }}
         validationSchema={loginSchema}
         onSubmit={(values, { resetForm }) => {
           login(values);
@@ -85,43 +85,42 @@ export const Login = () => {
             <Card.Body>
               <Form onSubmit={handleSubmit}>
                 <Input
-                  label={'Email'}
-                  id={'email'}
-                  type={'email'}
-                  name={'email'}
+                  label={"Email"}
+                  id={"email"}
+                  type={"email"}
+                  name={"email"}
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isValid={touched.email && !errors.email}
                   isInvalid={!!errors.email}
                 >
-                  <Form.Control.Feedback type='invalid'>
+                  <Form.Control.Feedback type="invalid">
                     {errors.email && touched.email && errors.email}
                   </Form.Control.Feedback>
                 </Input>
 
                 <Input
-                  label={'Senha'}
-                  id={'password'}
-                  type={'password'}
-                  name={'password'}
+                  label={"Senha"}
+                  id={"password"}
+                  type={"password"}
+                  name={"password"}
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isValid={touched.password && !errors.password}
                   isInvalid={!!errors.password}
-                  aria-describedby={'passwordHelpBlock'}
+                  aria-describedby={"passwordHelpBlock"}
                 >
-                  <Form.Control.Feedback type='invalid'>
+                  <Form.Control.Feedback type="invalid">
                     {errors.password && touched.password && errors.password}
                   </Form.Control.Feedback>
                 </Input>
 
                 <ButtonComponent
-                  type='submit'
-                  variant='success'
+                  type="submit"
+                  variant="success"
                   disabled={isSubmitting}
-                  size={undefined}
                 >
                   Login
                 </ButtonComponent>
