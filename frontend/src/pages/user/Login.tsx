@@ -2,10 +2,10 @@ import { Formik } from "formik";
 import { useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { Input } from "../../components/Input";
 import { AlertComponent } from "../../components/shared/Alert";
 import { ButtonComponent } from "../../components/shared/Button";
 import { Title } from "../../components/shared/Title";
-import { Input } from "../../components/template/Input";
 import api from "../../core/api/ApiService";
 import { loginSchema } from "../../state/schema/loginSchema";
 
@@ -48,7 +48,7 @@ export const Login = () => {
       {responseMessage ? (
         <AlertComponent
           message={responseMessage}
-          variant={"success"}
+          variant="success"
           timeInMS={3000}
         />
       ) : (
@@ -57,7 +57,7 @@ export const Login = () => {
       {errorMessage ? (
         <AlertComponent
           message={errorMessage}
-          variant={"danger"}
+          variant="danger"
           timeInMS={3000}
         />
       ) : (
@@ -85,10 +85,10 @@ export const Login = () => {
             <Card.Body>
               <Form onSubmit={handleSubmit}>
                 <Input
-                  label={"Email"}
-                  id={"email"}
-                  type={"email"}
-                  name={"email"}
+                  label="Email"
+                  id="email"
+                  type="email"
+                  name="email"
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -101,16 +101,16 @@ export const Login = () => {
                 </Input>
 
                 <Input
-                  label={"Senha"}
-                  id={"password"}
-                  type={"password"}
-                  name={"password"}
+                  label="Senha"
+                  id="password"
+                  type="password"
+                  name="password"
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   isValid={touched.password && !errors.password}
                   isInvalid={!!errors.password}
-                  aria-describedby={"passwordHelpBlock"}
+                  aria-describedby="passwordHelpBlock"
                 >
                   <Form.Control.Feedback type="invalid">
                     {errors.password && touched.password && errors.password}
