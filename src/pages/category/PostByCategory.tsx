@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
+import { Title } from "../../components/Title";
 import { ButtonComponent } from "../../components/shared/Button";
-import { Title } from "../../components/shared/Title";
 import api from "../../core/api/ApiService";
 import { CategoryProps } from "../../core/category/Category";
 import { PostProps } from "../../core/posts/Post";
