@@ -1,7 +1,7 @@
 import { Formik } from "formik";
-import { useState } from "react";
 import { Card, Form } from "react-bootstrap";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { SweetAlert } from "../../components/Alert";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
@@ -14,61 +14,70 @@ export interface LoginProps {
   password: string;
 }
 
+interface LoginError {
+  response?: {
+    data?: {
+      error?: string;
+    };
+  };
+}
+
 export const Login = () => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [responseMessage, setResponseMessage] = useState<string | null>(null);
-  const navigate: NavigateFunction = useNavigate();
+  const navigate = useNavigate();
 
-  async function login(dataForm: LoginProps): Promise<void> {
+  const loginMutation = useMutation((dataForm: LoginProps) => {
     const { email, password } = dataForm;
-    setErrorMessage(null);
-    setResponseMessage(null);
 
-    await api
-      .post("/users/login", {
-        email,
-        password,
-      })
-      .then(() => {
-        setResponseMessage("Login realizado com sucesso!");
-        redirectToHome(true);
-      })
-      .catch((err: any) => setErrorMessage(err.response.data.error));
-  }
+    return api.post("/users/login", { email, password });
+  });
 
-  function redirectToHome(isRedirect: boolean): void {
-    if (isRedirect)
-      setTimeout(() => {
-        navigate("/");
-      }, 4000);
-  }
+  const handleSubmit = async (values: LoginProps) => {
+    try {
+      await loginMutation.mutateAsync(values);
+      redirectToHome(true);
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
+  const redirectToHome = (isRedirect: boolean) => {
+    const FOUR_SECONDS_WAIT_TO_REDIRECT = 4000;
+
+    if (!isRedirect) return;
+
+    setTimeout(() => {
+      navigate("/");
+    }, FOUR_SECONDS_WAIT_TO_REDIRECT);
+  };
 
   return (
     <>
-      {responseMessage ? (
+      {console.log(loginMutation)}
+      {loginMutation.isSuccess && (
         <SweetAlert
-          message={responseMessage}
+          message={loginMutation.data.data.message}
           variant="success"
           timeInMS={3000}
         />
-      ) : (
-        ""
       )}
-      {errorMessage ? (
+
+      {loginMutation.isError && loginMutation.error && (
         <SweetAlert
-          message={errorMessage}
+          message={
+            (loginMutation.error as LoginError)?.response?.data?.error ||
+            "Erro ao realizar login"
+          }
           variant="danger"
           timeInMS={3000}
         />
-      ) : (
-        ""
       )}
+
       <Title>Login:</Title>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={loginSchema}
         onSubmit={(values, { resetForm }) => {
-          login(values);
+          handleSubmit(values);
           resetForm();
         }}
       >
@@ -117,12 +126,8 @@ export const Login = () => {
                   </Form.Control.Feedback>
                 </Input>
 
-                <Button
-                  type="submit"
-                  variant="success"
-                  disabled={isSubmitting}
-                >
-                  Login
+                <Button type="submit" variant="success" disabled={isSubmitting}>
+                  {isSubmitting ? "Logando..." : "Login"}
                 </Button>
               </Form>
             </Card.Body>
