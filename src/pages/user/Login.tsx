@@ -1,12 +1,12 @@
 import { Formik } from "formik";
 import { Card, Form } from "react-bootstrap";
 import { useMutation } from "react-query";
-import { useNavigate } from "react-router-dom";
 import { SweetAlert } from "../../components/Alert";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Title } from "../../components/Title";
 import api from "../../core/api/ApiService";
+import { redirectToHome } from "../../helpers/redirectToHome";
 import { loginSchema } from "../../state/schema/loginSchema";
 
 export interface LoginProps {
@@ -23,8 +23,6 @@ interface LoginError {
 }
 
 export const Login = () => {
-  const navigate = useNavigate();
-
   const loginMutation = useMutation((dataForm: LoginProps) => {
     const { email, password } = dataForm;
 
@@ -34,20 +32,10 @@ export const Login = () => {
   const handleSubmit = async (values: LoginProps) => {
     try {
       await loginMutation.mutateAsync(values);
-      redirectToHome(true);
+      redirectToHome();
     } catch (error: any) {
       console.error(error);
     }
-  };
-
-  const redirectToHome = (isRedirect: boolean) => {
-    const FOUR_SECONDS_WAIT_TO_REDIRECT = 4000;
-
-    if (!isRedirect) return;
-
-    setTimeout(() => {
-      navigate("/");
-    }, FOUR_SECONDS_WAIT_TO_REDIRECT);
   };
 
   return (
