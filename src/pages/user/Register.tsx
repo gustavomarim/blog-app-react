@@ -3,10 +3,10 @@ import { Formik } from "formik";
 import { useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { SweetAlert } from "../../components/Alert";
+import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Title } from "../../components/Title";
-import { AlertComponent } from "../../components/shared/Alert";
-import { ButtonComponent } from "../../components/shared/Button";
 import api from "../../core/api/ApiService";
 import registerSchema from "../../state/schema/registerSchema";
 
@@ -55,14 +55,14 @@ export const Register = () => {
   return (
     <>
       {successMessage && (
-        <AlertComponent
+        <SweetAlert
           message={successMessage}
           variant="success"
           timeInMS={3000}
         />
       )}
       {errorMessage && (
-        <AlertComponent
+        <SweetAlert
           message={errorMessage}
           variant="danger"
           timeInMS={3000}
@@ -165,9 +165,9 @@ export const Register = () => {
                   </Form.Control.Feedback>
                 </Input>
 
-                <ButtonComponent type="submit" variant="success">
+                <Button type="submit" variant="success">
                   Registrar
-                </ButtonComponent>
+                </Button>
               </Form>
             </Card.Body>
           </Card>

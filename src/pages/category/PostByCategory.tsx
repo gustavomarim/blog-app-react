@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
+import { Button } from "../../components/Button";
 import { Title } from "../../components/Title";
-import { ButtonComponent } from "../../components/shared/Button";
 import api from "../../core/api/ApiService";
 import { CategoryProps } from "../../core/category/Category";
 import { PostProps } from "../../core/posts/Post";
@@ -43,9 +43,9 @@ export const PostByCategory = () => {
             <Card.Body>
               <Card.Title>{post.title}</Card.Title>
               <Card.Text>{post.description}</Card.Text>
-              <ButtonComponent variant="primary" type="button">
+              <Button variant="primary" type="button">
                 <Link to={`/posts/${post.slug}`}>Leia Mais</Link>
-              </ButtonComponent>
+              </Button>
               <hr />
               <small className="d-block">
                 {`Data de publicação: ${_.fd.formatDate(post.date)}`}

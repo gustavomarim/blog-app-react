@@ -1,7 +1,7 @@
+import { Container } from 'react-bootstrap';
 import './App.css';
-import { Container } from './components/layouts/Container';
-import RoutesComponent from './components/routes/index';
-import { NavBar } from './components/template/NavBar';
+import { NavBar } from './components/NavBar';
+import RoutesComponent from './routes';
 
 function App() {
   return (

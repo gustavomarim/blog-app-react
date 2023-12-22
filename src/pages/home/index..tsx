@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Jumbotron } from '../../components/Jumbotron';
+import { PostCard } from '../../components/PostCard';
 import { Title } from '../../components/Title';
-import { PostCard } from '../../components/post/PostCard';
-import { Jumbotron } from '../../components/template/Jumbotron';
 import api from '../../core/api/ApiService';
 import { PostProps } from '../../core/posts/Post';
 

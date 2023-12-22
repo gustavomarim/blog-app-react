@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button as BSButton } from "react-bootstrap";
 
 type ButtonVariantProps =
   | "primary"
@@ -20,16 +20,16 @@ type ButtonVariantProps =
   | "outline-dark"
   | "outline-light";
 
-type ButtonProps = React.ComponentProps<typeof Button & "button"> & {
+type ButtonProps = React.ComponentProps<typeof BSButton & "button"> & {
   variant?: ButtonVariantProps;
 };
 
-export const ButtonComponent = ({ variant, ...props }: ButtonProps) => {
+export const Button = ({ variant, ...props }: ButtonProps) => {
   return (
     <>
-      <Button variant={variant} {...props}>
+      <BSButton variant={variant} {...props}>
         {props.children}
-      </Button>
+      </BSButton>
     </>
   );
 };

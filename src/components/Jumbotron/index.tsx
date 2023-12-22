@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ButtonComponent } from "../shared/Button";
+import { Button } from "../Button";
 
 export const Jumbotron = () => {
   return (
@@ -14,9 +14,9 @@ export const Jumbotron = () => {
             novidades do mundo da computação.
           </p>
 
-          <ButtonComponent variant="primary" type="button" size="lg">
+          <Button variant="primary" type="button" size="lg">
             <Link to="/register">Crie uma Conta</Link>
-          </ButtonComponent>
+          </Button>
         </div>
       </div>
     </>

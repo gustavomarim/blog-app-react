@@ -2,10 +2,10 @@ import { Formik } from "formik";
 import { useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { NavigateFunction, useNavigate } from "react-router-dom";
+import { SweetAlert } from "../../components/Alert";
+import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Title } from "../../components/Title";
-import { AlertComponent } from "../../components/shared/Alert";
-import { ButtonComponent } from "../../components/shared/Button";
 import api from "../../core/api/ApiService";
 import { loginSchema } from "../../state/schema/loginSchema";
 
@@ -46,7 +46,7 @@ export const Login = () => {
   return (
     <>
       {responseMessage ? (
-        <AlertComponent
+        <SweetAlert
           message={responseMessage}
           variant="success"
           timeInMS={3000}
@@ -55,7 +55,7 @@ export const Login = () => {
         ""
       )}
       {errorMessage ? (
-        <AlertComponent
+        <SweetAlert
           message={errorMessage}
           variant="danger"
           timeInMS={3000}
@@ -117,13 +117,13 @@ export const Login = () => {
                   </Form.Control.Feedback>
                 </Input>
 
-                <ButtonComponent
+                <Button
                   type="submit"
                   variant="success"
                   disabled={isSubmitting}
                 >
                   Login
-                </ButtonComponent>
+                </Button>
               </Form>
             </Card.Body>
           </Card>

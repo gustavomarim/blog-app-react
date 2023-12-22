@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { PostProps } from "../../core/posts/Post";
 import _ from "../../functions/_";
-import { ButtonComponent } from "../shared/Button";
+import { Button } from "../Button";
 
 export const PostCard = (props: PostProps) => {
   return (
@@ -12,9 +12,9 @@ export const PostCard = (props: PostProps) => {
           <h3>{props.title}</h3>
           <Card.Text>{props.description}</Card.Text>
 
-          <ButtonComponent type="button" size="sm" variant="primary">
+          <Button type="button" size="sm" variant="primary">
             <Link to={`/posts/${props.slug}`}>Leia Mais</Link>
-          </ButtonComponent>
+          </Button>
 
           <hr />
           <small className="d-block">{`Categoria: ${props.category.name}`}</small>

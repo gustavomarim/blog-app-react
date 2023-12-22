@@ -3,5 +3,5 @@ export interface ContainerProps {
 }
 
 export const Container = (props: ContainerProps) => {
-  return <div className='container mt-4'>{props.children}</div>;
+  return <section className='container mt-4'>{props.children}</section>;
 };

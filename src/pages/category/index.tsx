@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { TagIcon } from '../../components/Icons';
 import { Title } from '../../components/Title';
-import { TagIcon } from '../../components/icons';
 import api from '../../core/api/ApiService';
 import { CategoryProps } from '../../core/category/Category';
 
