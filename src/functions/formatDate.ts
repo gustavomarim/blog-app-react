@@ -1,10 +1,10 @@
-function formatDate(date: Date): string {
-  const newDate = date.toString();
-  const [data, time] = newDate.split('T');
-  const [year, month, day] = data.split('-');
-  const [hour, minute] = time.split(':');
+function formatDate(date: Date) {
+  const dataString = new Date(date)
 
-  return `${day}/${month}/${year} - ${hour}:${minute}`;
+  return new Intl.DateTimeFormat('pt-BR', {
+      timeStyle: 'short',
+      dateStyle: 'short'
+    }).format(dataString)
 }
 
 export default { formatDate };
