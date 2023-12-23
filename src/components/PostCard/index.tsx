@@ -1,10 +1,10 @@
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { PostProps } from "../../core/posts/Post";
 import _ from "../../functions/_";
+import { BlogPostProps } from "../../types/blogPost";
 import { Button } from "../Button";
 
-export const PostCard = (props: PostProps) => {
+export const PostCard = (props: BlogPostProps) => {
   return (
     <>
       <Card className="mb-4">

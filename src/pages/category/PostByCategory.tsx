@@ -4,12 +4,12 @@ import { Link, useParams } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { Title } from "../../components/Title";
 import api from "../../core/api/ApiService";
-import { CategoryProps } from "../../core/category/Category";
-import { PostProps } from "../../core/posts/Post";
 import _ from "../../functions/_";
+import { BlogPostProps } from "../../types/blogPost";
+import { CategoryProps } from "../../types/category";
 
 export const PostByCategory = () => {
-  const [post, setPost] = useState<PostProps[]>([]);
+  const [post, setPost] = useState<BlogPostProps[]>([]);
   const [category, setCategory] = useState<CategoryProps>();
   const params = useParams();
   const slug = params.slug ?? "";

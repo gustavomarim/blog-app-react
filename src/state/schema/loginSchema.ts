@@ -1,5 +1,5 @@
 import { object, ObjectSchema, string } from 'yup';
-import { LoginProps } from '../../pages/user/Login';
+import { LoginProps } from '../../types/login';
 import regex from '../constants/regex';
 
 export const loginSchema: ObjectSchema<LoginProps> = object({

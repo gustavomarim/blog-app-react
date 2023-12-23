@@ -1,9 +1,4 @@
-export interface CategoryProps {
-  id: string;
-  date: string;
-  name: string;
-  slug: string;
-}
+import { CategoryProps } from "../../types/category";
 
 export default class Category {
   private _props: CategoryProps;

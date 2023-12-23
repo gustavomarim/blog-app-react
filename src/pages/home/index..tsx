@@ -3,10 +3,10 @@ import { Jumbotron } from '../../components/Jumbotron';
 import { PostCard } from '../../components/PostCard';
 import { Title } from '../../components/Title';
 import api from '../../core/api/ApiService';
-import { PostProps } from '../../core/posts/Post';
+import { BlogPostProps } from '../../types/blogPost';
 
 export const Home = () => {
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  const [posts, setPosts] = useState<BlogPostProps[]>([]);
 
   useEffect(() => {
     async function getAllPosts() {

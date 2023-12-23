@@ -7,7 +7,7 @@ type InputProps = React.ComponentProps<typeof Form.Control & "input"> & {
 
 export const Input = ({ id, label, children, ...props }: InputProps) => (
   <Form.Group className="mb-3">
-    <Form.Label htmlFor={props.id}>{props.label}</Form.Label>
+    <Form.Label htmlFor={id}>{label}</Form.Label>
     <Form.Control {...props} />
     {children}
   </Form.Group>

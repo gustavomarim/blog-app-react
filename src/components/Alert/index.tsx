@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Alert as BSAlert } from 'react-bootstrap';
-import { VariantProps } from '../../core/bootstrap/Variant';
+import { ButtonVariantProps } from '../../types/buttonVariant';
 
 export interface AlertProps {
   message: string;
-  variant: VariantProps;
+  variant: ButtonVariantProps;
   timeInMS: number;
 }
 

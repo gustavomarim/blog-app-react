@@ -1,4 +1,4 @@
-export type VariantProps =
+export type ButtonVariantProps =
   | 'primary'
   | 'secondary'
   | 'success'

@@ -1,8 +1,8 @@
 import { object, ObjectSchema, string } from 'yup';
-import { DataFormProps } from '../../pages/user/Register';
 import regex from '../../state/constants/regex';
+import { UserRegisterProps } from '../../types/userRegister';
 
-const registerSchema: ObjectSchema<DataFormProps> = object({
+const registerSchema: ObjectSchema<UserRegisterProps> = object({
   name: string()
     .matches(
       regex.onlyCharacter,

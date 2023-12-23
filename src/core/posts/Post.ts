@@ -1,18 +1,9 @@
-import { CategoryProps } from '../category/Category';
-
-export interface PostProps {
-  title: string;
-  slug: string;
-  description: string;
-  content: string;
-  category: CategoryProps;
-  date: Date;
-}
+import { BlogPostProps } from "../../types/blogPost";
 
 export default class Post {
-  private _props: PostProps;
+  private _props: BlogPostProps;
 
-  constructor(props: PostProps) {
+  constructor(props: BlogPostProps) {
     this._props = props;
   }
 }

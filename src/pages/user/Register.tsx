@@ -1,72 +1,41 @@
-import { AxiosResponse } from "axios";
 import { Formik } from "formik";
-import { useState } from "react";
 import { Card, Form } from "react-bootstrap";
-import { NavigateFunction, useNavigate } from "react-router-dom";
 import { SweetAlert } from "../../components/Alert";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Title } from "../../components/Title";
-import api from "../../core/api/ApiService";
-import { redirectToHome } from "../../helpers/redirectToHome";
+import { useRegister } from "../../hooks/useRegister";
+import { TIME_TO_SHOW_ALERT } from "../../state/constants/timeToShowAlert";
 import registerSchema from "../../state/schema/registerSchema";
-
-export interface DataFormProps {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+import { RequestErrorProps } from "../../types/requestError";
 
 export const Register = () => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const navigate: NavigateFunction = useNavigate();
-
-  async function registerForm(dataForm: DataFormProps): Promise<void> {
-    const { name, email, password, confirmPassword } = dataForm;
-    setErrorMessage(null);
-    setSuccessMessage(null);
-
-    await api
-      .post("/users/register", {
-        name,
-        email,
-        password,
-        confirmPassword,
-      })
-      .then((response: AxiosResponse<any, any>) => {
-        if (response.status === 200) {
-          setSuccessMessage("Cadastro realizado com sucesso!");
-          redirectToHome();
-        }
-      })
-      .catch((error: any) => {
-        setErrorMessage(error.response.data);
-      });
-  }
+  const { register, registerMutation } = useRegister();
 
   return (
     <>
-      {successMessage && (
+      {registerMutation.isSuccess && (
         <SweetAlert
-          message={successMessage}
+          message={registerMutation.data.data.message}
           variant="success"
-          timeInMS={3000}
+          timeInMS={TIME_TO_SHOW_ALERT}
         />
       )}
-      {errorMessage && (
+      {registerMutation && (
         <SweetAlert
-          message={errorMessage}
+          message={
+            (registerMutation.error as RequestErrorProps)?.response?.data
+              ?.error || "Erro ao registrar um novo usuário"
+          }
           variant="danger"
-          timeInMS={3000}
+          timeInMS={TIME_TO_SHOW_ALERT}
         />
       )}
       <Title>Crie sua conta hoje:</Title>
       <Formik
         validationSchema={registerSchema}
         onSubmit={(values, { resetForm }) => {
-          registerForm(values);
+          register(values);
           resetForm();
         }}
         initialValues={{

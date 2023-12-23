@@ -1,12 +1,6 @@
 import _ from '../../functions/_';
 import regex from '../../state/constants/regex';
-
-export interface UserProps {
-  id?: string;
-  name: string;
-  email: string;
-  password: string;
-}
+import { UserProps } from '../../types/user';
 
 type FieldName = 'name' | 'email' | 'password';
 type Field = {

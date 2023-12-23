@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { TagIcon } from '../../components/Icons';
 import { Title } from '../../components/Title';
 import api from '../../core/api/ApiService';
-import { CategoryProps } from '../../core/category/Category';
+import { CategoryProps } from '../../types/category';
 
 export const Category = () => {
   const [categories, setCategories] = useState<CategoryProps[]>([]);
