@@ -1,10 +1,18 @@
 export type ButtonVariantProps =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'danger'
-  | 'warning'
-  | 'info'
-  | 'light'
-  | 'dark'
-  | undefined;
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "dark"
+  | "light"
+  | "link"
+  | "outline-primary"
+  | "outline-secondary"
+  | "outline-success"
+  | "outline-danger"
+  | "outline-warning"
+  | "outline-info"
+  | "outline-dark"
+  | "outline-light";

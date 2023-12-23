@@ -1,25 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Alert as BSAlert } from 'react-bootstrap';
-import { ButtonVariantProps } from '../../types/buttonVariant';
+import { useEffect, useState } from "react";
+import { Alert as BSAlert } from "react-bootstrap";
+import { AlertProps } from "../../types/alert";
 
-export interface AlertProps {
-  message: string;
-  variant: ButtonVariantProps;
-  timeInMS: number;
-}
-
-export const SweetAlert = (props: AlertProps) => {
+export const SweetAlert = ({ message, timeInMS, variant }: AlertProps) => {
   const [showAlert, setShowAlert] = useState<boolean>(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowAlert(false);
-    }, props.timeInMS);
+    }, timeInMS);
 
     return () => clearTimeout(timer);
   }, []);
 
-  return showAlert ? (
-    <BSAlert variant={props.variant}>{props.message}</BSAlert>
-  ) : null;
+  return showAlert ? <BSAlert variant={variant}>{message}</BSAlert> : null;
 };
