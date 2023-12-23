@@ -17,8 +17,6 @@ export const useRegister = () => {
     });
   });
 
-
-
   const handleRegister = async (values: UserRegisterProps) => {
     try {
       await registerMutation.mutateAsync(values);

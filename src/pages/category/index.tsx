@@ -1,36 +1,38 @@
-import { useEffect, useState } from 'react';
-import { ListGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { TagIcon } from '../../components/Icons';
-import { Title } from '../../components/Title';
-import api from '../../core/api/ApiService';
-import { CategoryProps } from '../../types/category';
+import { ListGroup } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { SweetAlert } from "../../components/Alert";
+import { TagIcon } from "../../components/Icons";
+import { Title } from "../../components/Title";
+import { useCategory } from "../../hooks/useCategory";
+import { TIME_TO_SHOW_ALERT } from "../../state/constants/timeToShowAlert";
 
 export const Category = () => {
-  const [categories, setCategories] = useState<CategoryProps[]>([]);
+  const { data, error, isLoading } = useCategory();
 
-  async function allCategories(): Promise<void> {
-    const response = await api.get('/categories');
-    const data = response.data;
-    setCategories(data);
+  if (isLoading) <p>Carregando...</p>;
+
+  if (error) {
+    console.error("Erro ao carregar categorias:", error);
+    <SweetAlert
+      message={`Erro ao carregar categorias::: ${error}`}
+      timeInMS={TIME_TO_SHOW_ALERT}
+      variant="warning"
+    />;
   }
-
-  useEffect(() => {
-    allCategories();
-  }, []);
 
   return (
     <>
       <Title>Categorias:</Title>
       <ListGroup>
-        {categories.map(({ name, slug }) => (
-          <ListGroup.Item action className='d-flex' key={name}>
-            <Link to={`/categories/${slug}`}>
-              {TagIcon(5)}
-              {name}
-            </Link>
-          </ListGroup.Item>
-        ))}
+        {data &&
+          data.map(({ name, slug }) => (
+            <ListGroup.Item action className="d-flex" key={name}>
+              <Link to={`/categories/${slug}`}>
+                {TagIcon(5)}
+                {name}
+              </Link>
+            </ListGroup.Item>
+          ))}
       </ListGroup>
     </>
   );
