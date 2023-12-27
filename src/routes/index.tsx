@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
 import { Category } from '../pages/category';
-import { PostByCategory } from '../pages/category/PostByCategory';
-import { Home } from '../pages/home/index.';
+import { Home } from '../pages/home/index';
+import { Login } from '../pages/login';
 import { Post } from '../pages/post';
-import { Login } from '../pages/user/Login';
-import { Register } from '../pages/user/Register';
+import { PostByCategory } from '../pages/postByCategory';
+import { Register } from '../pages/register';
 
 const RoutesComponent = () => {
   return (
