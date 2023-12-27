@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
-import { Button } from "../../components/Button";
 import { Title } from "../../components/Title";
 import api from "../../core/api/ApiService";
 import _ from "../../functions/_";
@@ -20,18 +19,8 @@ export const PostByCategory = () => {
     setPost(data);
   }
 
-  async function getCategoryBySlug(slug: string): Promise<void> {
-    const response = await api.get(`/category/${slug}`);
-    const { data } = response;
-    setCategory(data);
-  }
-
   useEffect(() => {
     if (_.str.isString(slug)) getPostByCategory(slug);
-  }, []);
-
-  useEffect(() => {
-    if (_.str.isString(slug)) getCategoryBySlug(slug);
   }, []);
 
   if (post && post.length > 0)
