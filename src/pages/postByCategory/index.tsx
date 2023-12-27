@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
+import { SweetAlert } from "../../components/Alert";
 import { Title } from "../../components/Title";
-import api from "../../core/api/ApiService";
 import _ from "../../functions/_";
 import { useCategory } from "../../hooks/useCategory";
+import { usePostByCategory } from "../../hooks/usePostByCategory";
+import { TIME_TO_SHOW_ALERT } from "../../state/constants/timeToShowAlert";
 import { CategoryProps } from "../../types/category";
 
 export const PostByCategory = () => {
-  const [post, setPost] = useState<BlogPostProps[]>([]);
   const [category, setCategory] = useState<CategoryProps>();
   const params = useParams();
+  const slug = params.slug || "";
+  const { data, error, isLoading } = usePostByCategory(`/categories/${slug}`);
   const { getCategory } = useCategory();
 
   useEffect(() => {
@@ -26,32 +29,45 @@ export const PostByCategory = () => {
     fetchCategoryBySlug();
   }, [slug]);
 
-  if (post && post.length > 0)
+  if (isLoading) <p>Carregando...</p>;
+
+  if (error) {
+    console.error(`Erro ao carregar as postagens por categoria: ${error}`);
+    <SweetAlert
+      message={`Erro ao carregar as postagens por categoria: ${error}`}
+      variant="warning"
+      timeInMS={TIME_TO_SHOW_ALERT}
+    />;
+  }
+
+  if (data?.length === 0 && category) {
     return (
       <>
-        {category ? <Title>{category.name}</Title> : ""}
-        {post.map((post) => (
-          <Card className="mb-4" key={post.title}>
+        <Title>{category.name}</Title>
+        <p>Não há postagens desta categoria.</p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      {category && <Title>{category.name}</Title>}
+      {data &&
+        data.map(({ title, description, slug, date }) => (
+          <Card className="mb-4" key={title}>
             <Card.Body>
-              <Card.Title>{post.title}</Card.Title>
-              <Card.Text>{post.description}</Card.Text>
+              <Card.Title>{title}</Card.Title>
+              <Card.Text>{description}</Card.Text>
               <Button variant="primary" type="button">
-                <Link to={`/posts/${post.slug}`}>Leia Mais</Link>
+                <Link to={`/posts/${slug}`}>Leia Mais</Link>
               </Button>
               <hr />
               <small className="d-block">
-                {`Data de publicação: ${_.fd.formatDate(post.date)}`}
+                {`Data de publicação: ${_.fd.formatDate(date)}`}
               </small>
             </Card.Body>
           </Card>
         ))}
-      </>
-    );
-
-  return (
-    <>
-      <Title>{category ? category.name : ""}</Title>
-      <p>Não há postagens desta categoria.</p>
     </>
   );
 };
