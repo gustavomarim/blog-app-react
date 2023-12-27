@@ -7,15 +7,30 @@ const getAllCategories = async () => {
   return response.data;
 };
 
+const getCategoryBySlug = async (slug: string) => {
+  const response = await api.get<CategoryProps>(`/category/${slug}`);
+  return response.data;
+};
+
 export const useCategory = () => {
   const { data, error, isLoading } = useQuery({
     queryFn: getAllCategories,
     queryKey: ["getAllCategories"],
   });
 
+  const getCategory = async (slug: string) => {
+    try {
+      const category = getCategoryBySlug(slug);
+      return category;
+    } catch (error) {
+      console.error(`Erro ao buscar categoria por slug: ${error}`);
+    }
+  };
+
   return {
     data,
     error,
     isLoading,
+    getCategory,
   };
 };
