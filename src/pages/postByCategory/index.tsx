@@ -4,24 +4,27 @@ import { Link, useParams } from "react-router-dom";
 import { Title } from "../../components/Title";
 import api from "../../core/api/ApiService";
 import _ from "../../functions/_";
-import { BlogPostProps } from "../../types/blogPost";
+import { useCategory } from "../../hooks/useCategory";
 import { CategoryProps } from "../../types/category";
 
 export const PostByCategory = () => {
   const [post, setPost] = useState<BlogPostProps[]>([]);
   const [category, setCategory] = useState<CategoryProps>();
   const params = useParams();
-  const slug = params.slug ?? "";
-
-  async function getPostByCategory(slug: string): Promise<void> {
-    const response = await api.get(`/categories/${slug}`);
-    const { data } = response;
-    setPost(data);
-  }
+  const { getCategory } = useCategory();
 
   useEffect(() => {
-    if (_.str.isString(slug)) getPostByCategory(slug);
-  }, []);
+    const fetchCategoryBySlug = async () => {
+      try {
+        const category = await getCategory(slug);
+        setCategory(category);
+      } catch (error) {
+        console.error(`Erro ao fazer a requisição da categoria: ${slug}`);
+      }
+    };
+
+    fetchCategoryBySlug();
+  }, [slug]);
 
   if (post && post.length > 0)
     return (
