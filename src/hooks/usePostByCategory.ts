@@ -2,14 +2,14 @@ import { useQuery } from "react-query";
 import api from "../core/api/ApiService";
 import { BlogPostProps } from "../types/blogPost";
 
-const getPosts = async (endpoint: string) => {
-  const response = await api.get<BlogPostProps>(endpoint);
+const getPostByCategory = async (endpoint: string) => {
+  const response = await api.get<BlogPostProps[]>(endpoint);
   return response.data;
 };
 
-export const usePost = (endpoint: string) => {
+export const usePostByCategory = (endpoint: string) => {
   const { data, error, isLoading } = useQuery({
-    queryFn: () => getPosts(endpoint),
+    queryFn: () => getPostByCategory(endpoint),
     queryKey: [endpoint],
   });
 
