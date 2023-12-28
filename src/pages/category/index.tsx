@@ -25,8 +25,8 @@ export const Category = () => {
       <Title>Categorias:</Title>
       <ListGroup>
         {data &&
-          data.map(({ name, slug }) => (
-            <ListGroup.Item action className="d-flex" key={name}>
+          data.map(({ id, name, slug }) => (
+            <ListGroup.Item action className="d-flex" key={id}>
               <Link to={`/categories/${slug}`}>
                 {TagIcon(5)}
                 {name}

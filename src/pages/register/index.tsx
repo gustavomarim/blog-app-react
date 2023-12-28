@@ -73,7 +73,7 @@ export const Register = () => {
                 </Input>
 
                 <Input
-                  label="Email"
+                  label="E-mail"
                   id="email"
                   type="email"
                   name="email"
@@ -111,7 +111,7 @@ export const Register = () => {
                 </Input>
 
                 <Input
-                  label="Redigite a Senha"
+                  label="Redigite a senha"
                   id="confirmPassword"
                   type="password"
                   name="confirmPassword"

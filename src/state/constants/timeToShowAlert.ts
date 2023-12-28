@@ -4,4 +4,4 @@
  * @constant
  * @default 3000
  */
-export const TIME_TO_SHOW_ALERT = 3000;
+export const TIME_TO_SHOW_ALERT: number = 3000;
