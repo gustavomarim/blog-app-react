@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { AdminCategoryList } from "../pages/admin/categoryList";
 import { Category } from "../pages/category";
 import { Home } from "../pages/home/index";
 import { Login } from "../pages/login";
@@ -17,6 +18,9 @@ const RoutesComponent = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="*" element={<PageNotFound />} />
+
+      {/* ...::: ADMIN :::... */}
+      <Route path="/admin/categories" element={<AdminCategoryList />} />
     </Routes>
   );
 };
