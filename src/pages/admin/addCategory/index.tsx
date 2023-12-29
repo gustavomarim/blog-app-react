@@ -9,6 +9,9 @@ import { categorySchema } from "../../../state/schema/categorySchema";
 
 export const AdminAddCategory = () => {
   const { createCategoryMutation, handleCreateCategory } = useCategory();
+  
+  // TODO - adicionar redirecionamento para '/admin/categories' 
+  // ao realizar cadastro de categoria bem sucedido
 
   return (
     <>

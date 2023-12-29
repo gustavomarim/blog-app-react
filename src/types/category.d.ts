@@ -1,6 +1,6 @@
 export type CategoryProps = {
-  id: string;
-  date: string;
+  _id?: string;
+  date?: string;
   name: string;
   slug: string;
 };
