@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import { AdminAddCategory } from "../pages/admin/addCategory";
 import { AdminCategoryList } from "../pages/admin/categoryList";
 import { Category } from "../pages/category";
 import { Home } from "../pages/home/index";
@@ -21,6 +22,7 @@ const RoutesComponent = () => {
 
       {/* ...::: ADMIN :::... */}
       <Route path="/admin/categories" element={<AdminCategoryList />} />
+      <Route path="/admin/categories/add" element={<AdminAddCategory />} />
     </Routes>
   );
 };
