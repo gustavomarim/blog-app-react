@@ -1,4 +1,5 @@
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { SweetAlert } from "../../../components/Alert";
 import { Button } from "../../../components/Button";
 import { Title } from "../../../components/Title";
@@ -24,19 +25,21 @@ export const AdminCategoryList = () => {
     <>
       <Title>Lista de Categorias</Title>
       <hr />
-      <Button variant="success" className="mb-4">
-        Nova categoria
-      </Button>
+      <Link to={"/admin/categories/add"}>
+        <Button variant="success" className="mb-4">
+          Nova categoria
+        </Button>
+      </Link>
 
       {data &&
-        data.map(({ date, id, name, slug }) => (
-          <Card className="mb-4" key={id}>
+        data.map(({ date, _id, name, slug }) => (
+          <Card className="mb-4" key={_id}>
             <Card.Body>
               <h4>{name}</h4>
               <Card.Text>
                 <small className="d-block">Slug: {slug}</small>
                 <small>
-                  Data de criação: {_.fd.formatDate(new Date(date))}
+                  Data de criação: {!!date && _.fd.formatDate(new Date(date))}
                 </small>
               </Card.Text>
 
