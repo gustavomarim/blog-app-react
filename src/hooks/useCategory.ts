@@ -13,7 +13,7 @@ const getCategoryBySlug = async (slug: string) => {
 };
 
 export const useCategory = () => {
-  const { data, error, isLoading } = useQuery({
+  const { data, error, isLoading, refetch } = useQuery({
     queryFn: getAllCategories,
     queryKey: ["getAllCategories"],
   });
@@ -44,6 +44,25 @@ export const useCategory = () => {
     }
   };
 
+  const removeCategoryMutation = useMutation(
+    (categoryId: string) => api.delete(`/admin/categories/${categoryId}`),
+    {
+      onSuccess: () => {
+        // Após a remoção bem-sucedida, refetch os dados 
+        // da consulta para atualizar o componente
+        refetch();
+      },
+    }
+  );
+
+  const handleRemoveCategory = async (categoryId: string) => {
+    try {
+      await removeCategoryMutation.mutateAsync(categoryId);
+    } catch (error) {
+      console.error(`Houve um erro ao deletar a categoria: ${error}`);
+    }
+  };
+
   return {
     data,
     error,
@@ -51,5 +70,7 @@ export const useCategory = () => {
     getCategory,
     createCategoryMutation,
     handleCreateCategory,
+    removeCategoryMutation,
+    handleRemoveCategory,
   };
 };

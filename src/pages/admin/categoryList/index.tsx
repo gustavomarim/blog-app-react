@@ -8,7 +8,7 @@ import { useCategory } from "../../../hooks/useCategory";
 import { TIME_TO_SHOW_ALERT } from "../../../state/constants/timeToShowAlert";
 
 export const AdminCategoryList = () => {
-  const { data, error, isLoading } = useCategory();
+  const { data, error, isLoading, handleRemoveCategory } = useCategory();
 
   if (isLoading) <p>Carregando...</p>;
 
@@ -47,7 +47,12 @@ export const AdminCategoryList = () => {
                 <Button type="button" variant="warning">
                   Editar
                 </Button>
-                <Button type="button" variant="danger">
+
+                <Button
+                  type="button"
+                  variant="danger"
+                  onClick={() => handleRemoveCategory(!!_id ? _id : "")}
+                >
                   Deletar
                 </Button>
               </div>
