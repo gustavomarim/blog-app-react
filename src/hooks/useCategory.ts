@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import api from "../core/api/ApiService";
 import { CategoryProps } from "../types/category";
 
@@ -27,10 +27,29 @@ export const useCategory = () => {
     }
   };
 
+  const createCategoryMutation = useMutation((values: CategoryProps) => {
+    const { name, slug } = values;
+
+    return api.post("/admin/categories", {
+      name,
+      slug,
+    });
+  });
+
+  const handleCreateCategory = async (values: CategoryProps) => {
+    try {
+      await createCategoryMutation.mutateAsync(values);
+    } catch (error) {
+      console.error(`Houve um erro ao criar a categoria: ${error}`);
+    }
+  };
+
   return {
     data,
     error,
     isLoading,
     getCategory,
+    createCategoryMutation,
+    handleCreateCategory,
   };
 };
