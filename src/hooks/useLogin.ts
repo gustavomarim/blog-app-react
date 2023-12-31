@@ -6,7 +6,11 @@ export const useLogin = () => {
   const loginMutation = useMutation((dataForm: LoginProps) => {
     const { email, password } = dataForm;
 
-    return api.post("/users/login", { email, password });
+    return api.post(
+      "/users/login",
+      { email, password },
+      { withCredentials: true }
+    );
   });
 
   const handleLogin = async (values: LoginProps) => {
