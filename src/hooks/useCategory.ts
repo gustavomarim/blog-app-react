@@ -30,10 +30,16 @@ export const useCategory = () => {
   const createCategoryMutation = useMutation((values: CategoryProps) => {
     const { name, slug } = values;
 
-    return api.post("/admin/categories", {
-      name,
-      slug,
-    });
+    return api.post(
+      "/admin/categories",
+      {
+        name,
+        slug,
+      },
+      {
+        withCredentials: true,
+      }
+    );
   });
 
   const handleCreateCategory = async (values: CategoryProps) => {
