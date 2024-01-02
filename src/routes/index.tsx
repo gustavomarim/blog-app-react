@@ -25,7 +25,7 @@ const RoutesComponent = () => {
       <Route path="/admin/categories" element={<AdminCategoryList />} />
       <Route path="/admin/categories/add" element={<AdminAddCategory />} />
       <Route
-        path="/admin/categories/edit/:slug"
+        path="/admin/categories/edit/:id"
         element={<AdminEditCategory />}
       />
     </Routes>
