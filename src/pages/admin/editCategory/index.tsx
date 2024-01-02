@@ -1,22 +1,22 @@
 import { Formik } from "formik";
 import { Button, Card, Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { Input } from "../../../components/Input";
 import { Title } from "../../../components/Title";
+import { useEditCategory } from "../../../hooks/admin/useEditCategory";
 import { useGetCategoryById } from "../../../hooks/admin/useGetCategoryById";
 import { categorySchema } from "../../../state/schema/categorySchema";
 
 export const AdminEditCategory = () => {
   const params = useParams();
   const { id } = params;
-  const { data, error, isLoading } = useGetCategoryById(!!id ? id : "");
+  const { data, error, isLoading } = useGetCategoryById(
+    !!id ? id : ""
+  );
+  const { editCategory, editCategoryMutation } = useEditCategory();
 
-  const handleEditCategory = (values: any) => {
-    console.log(
-      "🚀 ~ file: index.tsx:9 ~ handleEditCategory ~ values:",
-      values
-    );
-  };
+  if (editCategoryMutation.isSuccess)
+    return <Navigate to={"/admin/categories"} />;
 
   if (isLoading) return <p>Carregando...</p>;
 
@@ -26,10 +26,14 @@ export const AdminEditCategory = () => {
         <>
           <Title>Editar Categoria</Title>
           <Formik
-            initialValues={{ name: data?.name, slug: data?.slug }}
+            initialValues={{
+              _id: data._id,
+              name: data?.name,
+              slug: data?.slug,
+            }}
             validationSchema={categorySchema}
             onSubmit={(values, { resetForm }) => {
-              handleEditCategory(values);
+              editCategory(values);
               resetForm();
             }}
           >
@@ -82,8 +86,8 @@ export const AdminEditCategory = () => {
 
                     <Button type="submit" variant="success" disabled={!isValid}>
                       {isSubmitting
-                        ? "Criando categoria..."
-                        : "Criar categoria"}
+                        ? "Editando categoria..."
+                        : "Editar categoria"}
                     </Button>
                   </Form>
                 </Card.Body>
