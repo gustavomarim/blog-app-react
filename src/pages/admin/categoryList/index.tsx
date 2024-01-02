@@ -44,9 +44,11 @@ export const AdminCategoryList = () => {
               </Card.Text>
 
               <div className="d-flex gap-2">
-                <Button type="button" variant="warning">
-                  Editar
-                </Button>
+                <Link to={`/admin/categories/edit/${_id}`}>
+                  <Button type="button" variant="warning">
+                    Editar
+                  </Button>
+                </Link>
 
                 <Button
                   type="button"
