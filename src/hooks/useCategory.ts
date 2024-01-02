@@ -45,10 +45,11 @@ export const useCategory = () => {
   };
 
   const removeCategoryMutation = useMutation(
-    (categoryId: string) => api.delete(`/admin/categories/${categoryId}`),
+    (categoryId: string) =>
+      api.delete(`/admin/categories/${categoryId}`, { withCredentials: true }),
     {
       onSuccess: () => {
-        // Após a remoção bem-sucedida, refetch os dados 
+        // Após a remoção bem-sucedida, refetch os dados
         // da consulta para atualizar o componente
         refetch();
       },
