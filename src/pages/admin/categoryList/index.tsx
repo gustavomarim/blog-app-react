@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SweetAlert } from "../../../components/Alert";
 import { Button } from "../../../components/Button";
 import { Title } from "../../../components/Title";
@@ -7,20 +7,33 @@ import _ from "../../../functions/_";
 import { useGetAllCategories } from "../../../hooks/admin/useGetAllCategories";
 import { useCategory } from "../../../hooks/useCategory";
 import { TIME_TO_SHOW_ALERT } from "../../../state/constants/timeToShowAlert";
+import { RequestErrorProps } from "../../../types/requestError";
 
 export const AdminCategoryList = () => {
   const { handleRemoveCategory } = useCategory();
   const { data, error, isLoading } = useGetAllCategories();
+  const navigate = useNavigate();
 
-  if (isLoading) <p>Carregando...</p>;
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
 
   if (error) {
     console.error("Erro ao carregar categorias:", error);
-    <SweetAlert
-      message={`Erro ao carregar categorias::: ${error}`}
-      timeInMS={TIME_TO_SHOW_ALERT}
-      variant="warning"
-    />;
+    setTimeout(() => {
+      navigate("/login");
+    }, 4000);
+
+    return (
+      <SweetAlert
+        message={`Erro ao carregar categorias: ${
+          (error as RequestErrorProps)?.response?.data?.error ||
+          "Erro desconhecido"
+        }`}
+        timeInMS={TIME_TO_SHOW_ALERT}
+        variant="danger"
+      />
+    );
   }
 
   return (

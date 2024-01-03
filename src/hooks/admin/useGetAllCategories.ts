@@ -10,6 +10,7 @@ const getAllCategories = async () => {
     return response.data;
   } catch (error) {
     console.error(`Erro ao buscar categorias: ${error}`);
+    throw error;
   }
 };
 
