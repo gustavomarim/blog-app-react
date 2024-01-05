@@ -1,16 +1,25 @@
 import { Formik } from "formik";
+import { useContext } from "react";
 import { Card, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { SweetAlert } from "../../components/Alert";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { Title } from "../../components/Title";
-import { useLogin } from "../../hooks/useLogin";
+import { AuthContext } from "../../contexts/AuthContext";
 import { TIME_TO_SHOW_ALERT } from "../../state/constants/timeToShowAlert";
 import { loginSchema } from "../../state/schema/loginSchema";
 import { RequestErrorProps } from "../../types/requestError";
 
 export const Login = () => {
-  const { login, loginMutation } = useLogin();
+  const { login, loginMutation } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  if (loginMutation.isSuccess) {
+    setTimeout(() => {
+      navigate("/");
+    }, 4000);
+  }
 
   return (
     <>
