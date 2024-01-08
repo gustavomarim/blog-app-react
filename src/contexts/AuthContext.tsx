@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import { useMutation } from "react-query";
 import api from "../core/api/ApiService";
-import { AuthContextProps } from "../types/authContext";
+import { AuthContextProps } from "../types/AuthContext";
 import { LoginProps } from "../types/login";
 import { UserProps } from "../types/user";
 
@@ -32,16 +32,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const logout = () => {};
-
   return (
     <AuthContext.Provider
       value={{
         isLoggedIn,
-        loginMutation,
+        setIsLoggedIn,
         user,
+        setUser,
         login,
-        logout,
+        loginMutation,
       }}
     >
       {children}
