@@ -14,11 +14,13 @@ import { RequestErrorProps } from "../../types/requestError";
 export const Login = () => {
   const { login, loginMutation } = useContext(AuthContext);
   const navigate = useNavigate();
+  const THREE_SECONDS_TO_REDIRECT = 3000;
 
   if (loginMutation.isSuccess) {
     setTimeout(() => {
+      loginMutation.reset();
       navigate("/");
-    }, 4000);
+    }, THREE_SECONDS_TO_REDIRECT);
   }
 
   return (
