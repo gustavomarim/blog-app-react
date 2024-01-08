@@ -2,18 +2,20 @@ import { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useLogoutQuery } from "../../hooks/useLogoutQuery";
 import { TIME_TO_SHOW_ALERT } from "../../state/constants/timeToShowAlert";
 import { RequestErrorProps } from "../../types/requestError";
 import { SweetAlert } from "../Alert";
+import { Icon } from "../Icon";
+import { CustomNavbar } from "./CustomNavbar";
 
 export const NavBar = () => {
   const { isLoggedIn } = useContext(AuthContext);
   const { data, error, isSuccess, refetch } = useLogoutQuery();
   const navigate = useNavigate();
-  
+
   const THREE_SECONDS_TO_REDIRECT = 3000;
 
   const handleClickLogout = () => refetch();
@@ -27,31 +29,25 @@ export const NavBar = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Link to="/" className="text-decoration-none">
-          <Navbar.Brand>Blog App</Navbar.Brand>
-        </Link>
+        <CustomNavbar.NavbarBrand />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/" className="text-decoration-none nav-link">
-              Home
-            </Link>
-            <Link to="/categories" className="text-decoration-none nav-link">
-              Categorias
-            </Link>
-            {!isLoggedIn && (
-              <>
-                <Link to="/login" className="text-decoration-none nav-link">
-                  Login
-                </Link>
-                <Link to="/register" className="text-decoration-none nav-link">
-                  Registro
-                </Link>
-              </>
-            )}
+            <CustomNavbar.NavItem to="/" label="Home">
+              <Icon iconName="House" />
+            </CustomNavbar.NavItem>
+            <CustomNavbar.NavItem to="/categories" label="Categorias">
+              <Icon iconName="Archive" />
+            </CustomNavbar.NavItem>
+            <CustomNavbar.AuthLinks
+              isLoggedIn={isLoggedIn}
+              handleClickLogout={handleClickLogout}
+            />
 
-            {isLoggedIn && <button onClick={handleClickLogout}>Sair</button>}
-
+            {/* 
+            // TODO - encontrar uma forma de componentizar melhor
+            // os Alerts, utilizando componente e algum pattern
+             */}
             {isSuccess && (
               <SweetAlert
                 message={!!data ? data.message : "Deslogado com sucesso!"}
@@ -59,7 +55,6 @@ export const NavBar = () => {
                 timeInMS={TIME_TO_SHOW_ALERT}
               />
             )}
-
             {error && (
               <SweetAlert
                 message={
