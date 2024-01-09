@@ -9,7 +9,7 @@ import { TIME_TO_SHOW_ALERT } from "../../state/constants/timeToShowAlert";
 import { RequestErrorProps } from "../../types/requestError";
 import { SweetAlert } from "../Alert";
 import { Icon } from "../Icon";
-import { CustomNavbar } from "./CustomNavbar";
+import { NavbarRoot } from "./NavbarRoot";
 
 export const NavBar = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -29,17 +29,17 @@ export const NavBar = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <CustomNavbar.NavbarBrand />
+        <NavbarRoot.NavbarBrand />
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <CustomNavbar.NavItem to="/" label="Home">
+            <NavbarRoot.NavItem to="/" label="Home">
               <Icon iconName="House" />
-            </CustomNavbar.NavItem>
-            <CustomNavbar.NavItem to="/categories" label="Categorias">
+            </NavbarRoot.NavItem>
+            <NavbarRoot.NavItem to="/categories" label="Categorias">
               <Icon iconName="Archive" />
-            </CustomNavbar.NavItem>
-            <CustomNavbar.AuthLinks
+            </NavbarRoot.NavItem>
+            <NavbarRoot.AuthLinks
               isLoggedIn={isLoggedIn}
               handleClickLogout={handleClickLogout}
             />

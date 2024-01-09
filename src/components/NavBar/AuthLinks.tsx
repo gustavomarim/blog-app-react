@@ -1,8 +1,7 @@
 import { Button } from "react-bootstrap";
 import { QueryObserverResult } from "react-query";
 import { LogoutProps } from "../../types/Logout";
-import { Icon } from "../Icon";
-import { CustomNavbar } from "./CustomNavbar";
+import { NavbarRoot } from "./NavbarRoot";
 
 type AuthLinksProps = {
   isLoggedIn: boolean;
@@ -21,12 +20,8 @@ export const AuthLinks = ({
     <>
       {!isLoggedIn && (
         <>
-          <CustomNavbar.NavItem to="/login" label="Login">
-            <Icon iconName="BoxArrowInRight" />
-          </CustomNavbar.NavItem>
-          <CustomNavbar.NavItem to="/register" label="Criar Conta">
-            <Icon iconName="PlusLg" />
-          </CustomNavbar.NavItem>
+          <NavbarRoot.NavItem to="/login" label="Login" />
+          <NavbarRoot.NavItem to="/register" label="Registrar" />
         </>
       )}
 
