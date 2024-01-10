@@ -1,11 +1,11 @@
 import { Formik } from "formik";
 import { Button, Card, Form } from "react-bootstrap";
 import { Navigate, useParams } from "react-router-dom";
-import { Input } from "../../../components/Input";
-import { Title } from "../../../components/Title";
-import { useEditCategory } from "../../../hooks/admin/useEditCategory";
-import { useGetCategoryById } from "../../../hooks/admin/useGetCategoryById";
-import { categorySchema } from "../../../state/schema/categorySchema";
+import { Input } from "../../../../components/Input";
+import { Title } from "../../../../components/Title";
+import { useEditCategory } from "../../../../hooks/admin/useEditCategory";
+import { useGetCategoryById } from "../../../../hooks/admin/useGetCategoryById";
+import { categorySchema } from "../../../../state/schema/categorySchema";
 
 export const AdminEditCategory = () => {
   const params = useParams();

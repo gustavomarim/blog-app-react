@@ -36,9 +36,7 @@ export const NavBar = () => {
             <NavbarRoot.NavItem to="/" label="Home">
               <Icon iconName="House" />
             </NavbarRoot.NavItem>
-            <NavbarRoot.NavItem to="/categories" label="Categorias">
-              <Icon iconName="Archive" />
-            </NavbarRoot.NavItem>
+            <NavbarRoot.NavItem to="/categories" label="Categorias" />
             <NavbarRoot.AuthLinks
               isLoggedIn={isLoggedIn}
               handleClickLogout={handleClickLogout}

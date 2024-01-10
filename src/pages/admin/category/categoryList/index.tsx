@@ -1,13 +1,13 @@
 import { Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { SweetAlert } from "../../../components/Alert";
-import { Button } from "../../../components/Button";
-import { Title } from "../../../components/Title";
-import _ from "../../../functions/_";
-import { useGetAllCategories } from "../../../hooks/admin/useGetAllCategories";
-import { useCategory } from "../../../hooks/useCategory";
-import { TIME_TO_SHOW_ALERT } from "../../../state/constants/timeToShowAlert";
-import { RequestErrorProps } from "../../../types/requestError";
+import { SweetAlert } from "../../../../components/Alert";
+import { Button } from "../../../../components/Button";
+import { Title } from "../../../../components/Title";
+import _ from "../../../../functions/_";
+import { useGetAllCategories } from "../../../../hooks/admin/useGetAllCategories";
+import { useCategory } from "../../../../hooks/useCategory";
+import { TIME_TO_SHOW_ALERT } from "../../../../state/constants/timeToShowAlert";
+import { RequestErrorProps } from "../../../../types/requestError";
 
 export const AdminCategoryList = () => {
   const { handleRemoveCategory } = useCategory();

@@ -1,7 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import { AdminAddCategory } from "../pages/admin/addCategory";
-import { AdminCategoryList } from "../pages/admin/categoryList";
-import { AdminEditCategory } from "../pages/admin/editCategory";
+import { AdminAddCategory } from "../pages/admin/category/addCategory";
+import { AdminCategoryList } from "../pages/admin/category/categoryList";
+import { AdminEditCategory } from "../pages/admin/category/editCategory";
+import { AdminPostList } from "../pages/admin/posts/postList";
 import { Category } from "../pages/category";
 import { Home } from "../pages/home/index";
 import { Login } from "../pages/login";
@@ -28,6 +29,7 @@ const RoutesComponent = () => {
         path="/admin/categories/edit/:id"
         element={<AdminEditCategory />}
       />
+      <Route path="/admin/posts" element={<AdminPostList />} />
     </Routes>
   );
 };

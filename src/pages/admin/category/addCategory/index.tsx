@@ -1,11 +1,11 @@
 import { Formik } from "formik";
 import { Button, Card, Form } from "react-bootstrap";
-import { SweetAlert } from "../../../components/Alert";
-import { Input } from "../../../components/Input";
-import { Title } from "../../../components/Title";
-import { useCategory } from "../../../hooks/useCategory";
-import { TIME_TO_SHOW_ALERT } from "../../../state/constants/timeToShowAlert";
-import { categorySchema } from "../../../state/schema/categorySchema";
+import { SweetAlert } from "../../../../components/Alert";
+import { Input } from "../../../../components/Input";
+import { Title } from "../../../../components/Title";
+import { useCategory } from "../../../../hooks/useCategory";
+import { TIME_TO_SHOW_ALERT } from "../../../../state/constants/timeToShowAlert";
+import { categorySchema } from "../../../../state/schema/categorySchema";
 
 export const AdminAddCategory = () => {
   const { createCategoryMutation, handleCreateCategory } = useCategory();
