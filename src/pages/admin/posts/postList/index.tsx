@@ -61,7 +61,7 @@ export const AdminPostList = () => {
                 </small>
               </Card.Text>
               <div className="d-flex align-items-center gap-2">
-                <Link to={""}>
+                <Link to={`/admin/posts/${post._id}`}>
                   <Button
                     variant="warning"
                     className="d-flex justify-content-center align-items-center gap-1"
