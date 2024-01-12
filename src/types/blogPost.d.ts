@@ -1,9 +1,11 @@
+import { CategoryProps } from "./category";
+
 export type BlogPostProps = {
-  _id?: string;
+  _id: string;
   title: string;
   slug: string;
   description: string;
   content: string;
   category: CategoryProps;
-  date: Date;
+  date?: Date;
 };
