@@ -12,7 +12,7 @@ import { Icon } from "../Icon";
 import { NavbarRoot } from "./NavbarRoot";
 
 export const NavBar = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, user } = useContext(AuthContext);
   const { data, error, isSuccess, refetch } = useLogoutQuery();
   const navigate = useNavigate();
 
@@ -37,11 +37,8 @@ export const NavBar = () => {
               <Icon iconName="House" />
             </NavbarRoot.NavItem>
             <NavbarRoot.NavItem to="/categories" label="Categorias" />
-            <NavbarRoot.AuthLinks
-              isLoggedIn={isLoggedIn}
-              handleClickLogout={handleClickLogout}
-            />
-
+          </Nav>
+          <Nav>
             {/* 
             // TODO - encontrar uma forma de componentizar melhor
             // os Alerts, utilizando componente e algum pattern
@@ -63,6 +60,12 @@ export const NavBar = () => {
                 timeInMS={TIME_TO_SHOW_ALERT}
               />
             )}
+
+            <NavbarRoot.NavbarAdmin isLoggedIn={isLoggedIn} isAdmin={true} />
+            <NavbarRoot.AuthLinks
+              isLoggedIn={isLoggedIn}
+              handleClickLogout={handleClickLogout}
+            />
           </Nav>
         </Navbar.Collapse>
       </Container>
