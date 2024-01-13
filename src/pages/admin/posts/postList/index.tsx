@@ -1,7 +1,8 @@
 import { Button, Card } from "react-bootstrap";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { Icon } from "../../../../components/Icon";
+import { CustomSpinner } from "../../../../components/Spinner";
 import { Title } from "../../../../components/Title";
 import api from "../../../../core/api/ApiService";
 import _ from "../../../../functions/_";
@@ -20,13 +21,32 @@ const getAllPosts = async () => {
 };
 
 export const AdminPostList = () => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: "adminGetAllPosts",
     queryFn: getAllPosts,
   });
-  console.log("data", data);
 
-  if (isLoading) return <p>Carregando...</p>;
+  const removePostMutation = useMutation(
+    (postId: string) => {
+      return api.delete(`/admin/posts/${postId}`);
+    },
+    {
+      onSuccess: () => {
+        refetch();
+      },
+    }
+  );
+
+  const removePost = async (postId: string) => {
+    try {
+      await removePostMutation.mutateAsync(postId);
+    } catch (error) {
+      console.error(`Houve um erro ao deletar postagem. ${error}`);
+      throw error;
+    }
+  };
+
+  if (isLoading) return <CustomSpinner />;
 
   if (error) return null;
 
@@ -54,7 +74,7 @@ export const AdminPostList = () => {
               <Card.Text>Conteúdo: {post.content}</Card.Text>
               <Card.Text>
                 <small className="d-block">
-                  Postagem: {_.fd.formatDate(new Date(post.date))}
+                  Postagem: {post.date && _.fd.formatDate(new Date(post.date))}
                 </small>
                 <small className="d-block">
                   Categoria: {post.category.name}
@@ -73,6 +93,7 @@ export const AdminPostList = () => {
                 <Button
                   variant="danger"
                   className="d-flex justify-content-center align-items-center gap-1"
+                  onClick={() => removePost(post._id)}
                 >
                   Excluir <Icon iconName="TrashFill" />
                 </Button>
