@@ -35,6 +35,7 @@ export const Home = () => {
             content={content}
             category={category}
             date={date}
+            _id={_id}
           />
         )
       )}

@@ -19,9 +19,9 @@ export const PostCard = (props: BlogPostProps) => {
           <hr />
           <small className="d-block">{`Categoria: ${props.category.name}`}</small>
 
-          <small className="d-block">{`Data da postagem: ${_.fd.formatDate(
-            props.date
-          )}`}</small>
+          <small className="d-block">{`Data da postagem: ${
+            props.date && _.fd.formatDate(props.date)
+          }`}</small>
         </Card.Body>
       </Card>
     </>

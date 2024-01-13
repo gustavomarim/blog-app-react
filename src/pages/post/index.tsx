@@ -9,7 +9,7 @@ export const Post = () => {
   const params = useParams();
   const slug = params.slug;
   const { data, error, isLoading } = usePost(`/posts/${slug}`);
-  const formattedDate = data ? _.fd.formatDate(data?.date) : "";
+  const formattedDate = data?.date ? _.fd.formatDate(data?.date) : "";
 
   if (isLoading) <p>Carregando...</p>;
 

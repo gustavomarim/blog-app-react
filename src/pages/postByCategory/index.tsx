@@ -63,7 +63,7 @@ export const PostByCategory = () => {
               </Button>
               <hr />
               <small className="d-block">
-                {`Data de publicação: ${_.fd.formatDate(date)}`}
+                {`Data de publicação: ${date && _.fd.formatDate(date)}`}
               </small>
             </Card.Body>
           </Card>
