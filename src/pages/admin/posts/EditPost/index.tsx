@@ -5,6 +5,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { Input } from "../../../../components/Input";
 import { Title } from "../../../../components/Title";
 import api from "../../../../core/api/ApiService";
+import Category from "../../../../core/category/Category";
 import { useCategory } from "../../../../hooks/useCategory";
 import { postSchema } from "../../../../state/schema/postSchema";
 import { BlogPostProps } from "../../../../types/blogPost";
@@ -25,8 +26,12 @@ export const AdminEditPost = () => {
   const queryClient = useQueryClient();
   const params = useParams<{ id?: string }>();
   const { id } = params || "";
+
   const { data: categoryData } = useCategory();
-  console.log("🚀 ~ AdminEditPost ~ categoryData:", categoryData);
+
+  if (!categoryData) return null;
+  const category = new Category(categoryData);
+
   const { data, error, isLoading } = useQuery({
     queryFn: () => (id ? getPostById(id) : Promise.resolve(null)),
     queryKey: "getPostById",
@@ -188,7 +193,7 @@ export const AdminEditPost = () => {
                       onChange={({ target }) => {
                         const selectedCategoryId = target.value;
                         const selectedCategory =
-                          handleCategoryById(selectedCategoryId);
+                          category.findCategoryById(selectedCategoryId);
                         setValues((prevValues: any) => ({
                           ...prevValues,
                           category: selectedCategory,
