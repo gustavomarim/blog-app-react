@@ -1,12 +1,12 @@
 import { Button, Card } from "react-bootstrap";
 import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { Icon } from "../../../../components/Icon";
-import { CustomSpinner } from "../../../../components/Spinner";
-import { Title } from "../../../../components/Title";
-import api from "../../../../core/api/ApiService";
-import _ from "../../../../functions/_";
-import { BlogPostProps } from "../../../../types/blogPost";
+import { Icon } from "../../../components/Icon";
+import { CustomSpinner } from "../../../components/Spinner";
+import { Title } from "../../../components/Title";
+import api from "../../../core/api/ApiService";
+import _ from "../../../functions/_";
+import { BlogPostProps } from "../../../types/blogPost";
 
 const getAllPosts = async () => {
   try {
@@ -55,7 +55,7 @@ export const AdminPostList = () => {
       <Title>Lista de Postagens</Title>
       <hr />
 
-      <Link to={""}>
+      <Link to={"/admin/posts/create"}>
         <Button
           variant="success"
           className="mb-4 d-flex justify-content-center align-items-center gap-1"

@@ -2,8 +2,9 @@ import { Route, Routes } from "react-router-dom";
 import { AdminAddCategory } from "../pages/admin/category/addCategory";
 import { AdminCategoryList } from "../pages/admin/category/categoryList";
 import { AdminEditCategory } from "../pages/admin/category/editCategory";
+import { AdminPostList } from "../pages/admin/posts";
+import { AdminCreatePost } from "../pages/admin/posts/CreatePost";
 import { AdminEditPost } from "../pages/admin/posts/EditPost";
-import { AdminPostList } from "../pages/admin/posts/postList";
 import { Category } from "../pages/category";
 import { Home } from "../pages/home/index";
 import { Login } from "../pages/login";
@@ -32,6 +33,7 @@ const RoutesComponent = () => {
       />
       <Route path="/admin/posts" element={<AdminPostList />} />
       <Route path="/admin/posts/:id" element={<AdminEditPost />} />
+      <Route path="/admin/posts/create" element={<AdminCreatePost />} />
     </Routes>
   );
 };
